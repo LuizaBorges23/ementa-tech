@@ -1,0 +1,370 @@
+@import '../../styles.css';
+
+.pagina-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(circle at top right, rgba(78, 88, 214, 0.22), transparent 24%),
+      linear-gradient(135deg, #05031f 0%, #09073a 100%);
+}
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(7, 4, 52, 0.08);
+}
+
+.login3 {
+    background: linear-gradient(180deg, rgba(21, 15, 108, 1.00) 0%, rgba(19, 15, 80, 1.00) 54.3%, rgba(16, 14, 52, 1.00) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.icon2 {
+    width: 36px;
+    height: 34px;
+    flex-shrink: 0;
+}
+
+.menu-title {
+    align-self: flex-start;
+    margin-left: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 14px 30px;
+    color: #070434;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.3s;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.menu-item:hover {
+    background-color: #d1d1d1;
+}
+
+.menu-item.active {
+    background-color: #070434;
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 36px;
+    box-sizing: border-box;
+}
+
+.gestao-card {
+    width: 100%;
+    max-width: 1320px;
+    background-color: rgba(239, 240, 246, 0.98);
+    border-radius: 28px;
+    padding: 32px;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.24);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: #4f4f70;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.card-title {
+    font-size: clamp(1.6rem, 2vw, 2rem);
+    color: #000;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.card-subtitle {
+    font-size: 1rem;
+    color: #3e405f;
+    font-weight: 500;
+    margin: 0;
+}
+
+.header-badge {
+    padding: 12px 18px;
+    border-radius: 999px;
+    background-color: #070434;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.status-message {
+    margin: 0 0 20px;
+    color: #1f2143;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.status-message.error {
+    color: #b3261e;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 20px;
+    background-color: #ffffff;
+    border: 1px solid rgba(7, 4, 52, 0.08);
+}
+
+.data-table,
+.tabela-matriz {
+    width: 100%;
+    min-width: 920px;
+    border-collapse: collapse;
+    color: #111322;
+    background-color: #ffffff;
+}
+
+.data-table th,
+.data-table td,
+.tabela-matriz th,
+.tabela-matriz td {
+    text-align: left;
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(17, 19, 34, 0.08);
+    font-size: 0.98rem;
+    vertical-align: top;
+}
+
+.data-table th,
+.tabela-matriz th {
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #5b5f7c;
+    font-weight: 700;
+    background-color: #f5f6fb;
+}
+
+.course-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.course-meta {
+    color: #666b88;
+    font-size: 0.92rem;
+}
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 78px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background-color: #e6f4ea;
+    color: #1f7a35;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.btn-acao {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: none;
+    background-color: #0c0a3e;
+    color: #fff;
+    font-size: 0.94rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-acao:hover {
+    background-color: #191668;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.matriz-modal {
+    background-color: #f0f0f5;
+    width: min(960px, 100%);
+    border-radius: 24px;
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    max-height: min(90vh, 760px);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-eyebrow {
+    margin: 0 0 10px;
+    color: #585d7c;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.modal-title {
+    margin: 0;
+    color: #101223;
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+}
+
+.modal-subtitle {
+    margin: 8px 0 20px;
+    color: #595d79;
+    font-size: 0.98rem;
+}
+
+.modal-table {
+    flex: 1;
+}
+
+.btn-fechar {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(7, 4, 52, 0.16);
+    background: #fff;
+    color: #1a146b;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-fechar:hover {
+    transform: scale(1.04);
+}
+
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background-color: #0c0a3e;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.btn-link:hover {
+    background-color: #191668;
+}
+
+.empty-state {
+    text-align: center;
+    color: #636887;
+    font-weight: 600;
+}
+
+@media (max-width: 1080px) {
+    .pagina-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 0;
+        padding: 24px 18px;
+    }
+
+    .menu-title {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .menu-item {
+        width: auto;
+        min-width: 150px;
+        text-align: center;
+        border-radius: 999px;
+        margin: 0 8px;
+    }
+
+    .main-content {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 720px) {
+    .gestao-card,
+    .matriz-modal {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .card-header {
+        flex-direction: column;
+    }
+
+    .header-badge {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-content {
+        padding: 18px;
+    }
+
+    .data-table,
+    .tabela-matriz {
+        min-width: 760px;
+    }
+}

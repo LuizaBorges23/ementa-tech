@@ -1,0 +1,79 @@
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="login3">
+      <svg class="icon2" viewBox="0 0 36 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 9.91669V29.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4.5 25.5C4.10218 25.5 3.72064 25.3507 3.43934 25.0851C3.15804 24.8194 3 24.4591 3 24.0833V5.66667C3 5.29094 3.15804 4.93061 3.43934 4.66493C3.72064 4.39926 4.10218 4.25 4.5 4.25H12C13.5913 4.25 15.1174 4.84702 16.2426 5.90973C17.3679 6.97243 18 8.41377 18 9.91667C18 8.41377 18.6321 6.97243 19.7574 5.90973C20.8826 4.84702 22.4087 4.25 24 4.25H31.5C31.8978 4.25 32.2794 4.39926 32.5607 4.66493C32.842 4.93061 33 5.29094 33 5.66667V24.0833C33 24.4591 32.842 24.8194 32.5607 25.0851C32.2794 25.3507 31.8978 25.5 31.5 25.5H22.5C21.3065 25.5 20.1619 25.9478 19.318 26.7448C18.4741 27.5418 18 28.6228 18 29.75C18 28.6228 17.5259 27.5418 16.682 26.7448C15.8381 25.9478 14.6935 25.5 13.5 25.5H4.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <span class="menu-title">Geral</span>
+    <a routerLink="/dashboard" class="menu-item">Inicio</a>
+
+    <span class="menu-title">Estrutura</span>
+    <a routerLink="/cursos" routerLinkActive="active" class="menu-item">Cursos</a>
+    <a routerLink="/professores" routerLinkActive="active" class="menu-item">Professores</a>
+    <a routerLink="/disciplinas" routerLinkActive="active" class="menu-item">Disciplinas</a>
+  </aside>
+
+  <main class="main-content">
+    <section class="gestao-card">
+      <header class="card-header">
+        <div>
+          <p class="eyebrow">Professores</p>
+          <h1 class="card-title">Central de gestao de professores</h1>
+          <p class="card-subtitle">Listagem sincronizada com o backend e vinculada aos cursos cadastrados.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>Professores ativos</span>
+            <strong>{{ totalProfessoresAtivos }}</strong>
+          </div>
+          <div class="stat-card">
+            <span>Cursos ofertados</span>
+            <strong>{{ totalCursosOfertados }}</strong>
+          </div>
+        </div>
+      </header>
+
+      <p class="status-message" *ngIf="carregando">Carregando professores e cursos...</p>
+      <p class="status-message error" *ngIf="!carregando && mensagemErro">{{ mensagemErro }}</p>
+
+      <div class="table-wrapper" *ngIf="!carregando && !mensagemErro">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Professor</th>
+              <th>Matricula</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Escola vinculada</th>
+              <th>Curso</th>
+              <th>Status</th>
+              <th>Acoes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prof of listaProfessores">
+              <td>{{ prof.nome }}</td>
+              <td>{{ prof.matricula }}</td>
+              <td>{{ prof.email }}</td>
+              <td>{{ prof.telefone }}</td>
+              <td>{{ prof.escolaVinculada }}</td>
+              <td>{{ prof.curso }}</td>
+              <td><span class="status-chip" [class.inativo]="!prof.ativo">{{ prof.status }}</span></td>
+              <td>
+                <button class="btn-acao inactive" *ngIf="prof.ativo" (click)="inativarProfessor(prof)">Inativar</button>
+                <span class="tag-muted" *ngIf="!prof.ativo">Registro inativo</span>
+              </td>
+            </tr>
+            <tr *ngIf="!listaProfessores.length">
+              <td colspan="8" class="empty-state">Nenhum professor foi encontrado na integracao com o backend.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

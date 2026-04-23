@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - EmentaTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Inter:wght@400&family=Work+Sans:wght@500&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="login-layout">
+        <div class="login-left"></div>
+
+        <div class="login-right">
+            <div class="login2">
+    <svg class="icon1" width="63" height="60" viewBox="0 0 63 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M31.5 17.5V52.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M7.875 45C7.17881 45 6.51113 44.7366 6.01884 44.2678C5.52656 43.7989 5.25 43.163 5.25 42.5V10C5.25 9.33696 5.52656 8.70107 6.01884 8.23223C6.51113 7.76339 7.17881 7.5 7.875 7.5H21C23.7848 7.5 26.4555 8.55357 28.4246 10.4289C30.3938 12.3043 31.5 14.8478 31.5 17.5C31.5 14.8478 32.6062 12.3043 34.5754 10.4289C36.5445 8.55357 39.2152 7.5 42 7.5H55.125C55.8212 7.5 56.4889 7.76339 56.9812 8.23223C57.4734 8.70107 57.75 9.33696 57.75 10V42.5C57.75 43.163 57.4734 43.7989 56.9812 44.2678C56.4889 44.7366 55.8212 45 55.125 45H39.375C37.2864 45 35.2834 45.7902 33.8065 47.1967C32.3297 48.6032 31.5 50.5109 31.5 52.5C31.5 50.5109 30.6703 48.6032 29.1935 47.1967C27.7166 45.7902 25.7136 45 23.625 45H7.875Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+</div>
+      
+            <form class="form-container">
+    <label for="username">Usuario</label>
+    <input type="text" name="username" [(ngModel)]="username" placeholder="admin" />
+
+    <label for="senha">Senha</label>
+    <input type="password" name="senha" [(ngModel)]="senha" placeholder="admin123" />
+
+    <button type="button" (click)="aoEntrar()" class="btn-entrar">Entrar</button>
+</form>
+                
+        </div>
+    </div>
+</body>
+</html>

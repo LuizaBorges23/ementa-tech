@@ -1,0 +1,131 @@
+<div class="pagina-wrapper">
+  <div class="programa-container" *ngIf="carregando">
+    <div class="feedback-card">
+      <h1>Carregando programa da disciplina...</h1>
+      <p>Aguarde enquanto buscamos a ementa no backend.</p>
+    </div>
+  </div>
+
+  <div class="programa-container" *ngIf="!carregando && mensagemErro">
+    <div class="feedback-card erro">
+      <h1>Programa indisponivel</h1>
+      <p>{{ mensagemErro }}</p>
+      <a routerLink="/cursos" class="voltar-link">Voltar para cursos</a>
+    </div>
+  </div>
+
+  <div class="programa-container" *ngIf="!carregando && disciplinaExibida as programa">
+    <a routerLink="/cursos" class="voltar-link">Voltar para cursos</a>
+
+    <div class="programa-titulo-box">
+      <p class="eyebrow">Programa da disciplina</p>
+      <h1>{{ programa.nome }}</h1>
+      <p class="subtitle">Programa completo, matriz curricular e bibliografia integrados ao Spring Boot.</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item"><span>Escola</span><strong>{{ programa.escola }}</strong></div>
+      <div class="info-item"><span>Sigla</span><strong>{{ programa.sigla }}</strong></div>
+      <div class="info-item"><span>Semestre</span><strong>{{ programa.semestre }}</strong></div>
+      <div class="info-item"><span>Carga horaria</span><strong>{{ programa.cargaHoraria }}</strong></div>
+      <div class="info-item"><span>Professor responsavel</span><strong>{{ programa.professor }}</strong></div>
+      <div class="info-item"><span>Data de cadastro</span><strong>{{ programa.dataCadastro }}</strong></div>
+      <div class="info-item"><span>Status</span><strong class="status-chip" [class.is-active]="programa.statusAtivo" [class.is-inactive]="!programa.statusAtivo">{{ programa.status }}</strong></div>
+      <div class="info-item wide">
+        <span>Cursos vinculados</span>
+        <div class="pill-list">
+          <span class="pill" *ngFor="let curso of programa.cursos">{{ curso }}</span>
+        </div>
+      </div>
+      <div class="info-item wide">
+        <span>Pre-requisitos</span>
+        <div class="pill-list">
+          <span class="pill" *ngFor="let prerequisito of programa.preRequisitos">{{ prerequisito }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="programa-grid">
+      <section class="p-card">
+        <div class="card-header-azul">Ementa</div>
+        <div class="card-body">{{ programa.ementa }}</div>
+      </section>
+
+      <section class="p-card">
+        <div class="card-header-azul">Competencias e habilidades</div>
+        <div class="card-body">{{ programa.competencias }}</div>
+      </section>
+
+      <section class="p-card full-width">
+        <div class="card-header-azul">Conteudo programatico</div>
+        <div class="card-body">
+          <ul class="topic-list">
+            <li *ngFor="let topico of programa.conteudoProgramatico">{{ topico }}</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="p-card">
+        <div class="card-header-azul">Metodologia</div>
+        <div class="card-body">{{ programa.metodologia }}</div>
+      </section>
+
+      <section class="p-card">
+        <div class="card-header-azul">Processo de avaliacao</div>
+        <div class="card-body">{{ programa.avaliacao }}</div>
+      </section>
+
+      <section class="p-card full-width">
+        <div class="card-header-azul">Bibliografia basica</div>
+        <div class="card-body bibliografia-lista">
+          <article class="bibliografia-item" *ngFor="let livro of programa.bibliografiaBasica">
+            <h3>{{ livro.titulo }}</h3>
+            <p class="bibliografia-autores" *ngIf="livro.autores">{{ livro.autores }}</p>
+            <div class="bibliografia-meta">
+              <span *ngIf="livro.editora">Editora: {{ livro.editora }}</span>
+              <span *ngIf="livro.anoPublicacao">Ano: {{ livro.anoPublicacao }}</span>
+              <span *ngIf="livro.isbn">ISBN: {{ livro.isbn }}</span>
+              <span>{{ livro.localizacao }}</span>
+              <span>{{ livro.disponibilidade }}</span>
+            </div>
+            <a
+              *ngIf="livro.linkLivro"
+              class="catalog-link"
+              [href]="livro.linkLivro"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir acervo digital
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="p-card full-width">
+        <div class="card-header-azul">Bibliografia complementar</div>
+        <div class="card-body bibliografia-lista">
+          <article class="bibliografia-item" *ngFor="let livro of programa.bibliografiaComplementar">
+            <h3>{{ livro.titulo }}</h3>
+            <p class="bibliografia-autores" *ngIf="livro.autores">{{ livro.autores }}</p>
+            <div class="bibliografia-meta">
+              <span *ngIf="livro.editora">Editora: {{ livro.editora }}</span>
+              <span *ngIf="livro.anoPublicacao">Ano: {{ livro.anoPublicacao }}</span>
+              <span *ngIf="livro.isbn">ISBN: {{ livro.isbn }}</span>
+              <span>{{ livro.localizacao }}</span>
+              <span>{{ livro.disponibilidade }}</span>
+            </div>
+            <a
+              *ngIf="livro.linkLivro"
+              class="catalog-link"
+              [href]="livro.linkLivro"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir acervo digital
+            </a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
