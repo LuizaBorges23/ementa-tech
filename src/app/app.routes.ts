@@ -6,6 +6,8 @@ import { adminGuard } from '../admin.guard';
 import { professorGuard } from '../professor.guard';
 import { ProfessoresComponent } from './professores/professores.component';
 import { CursosComponent } from './cursos/cursos.component';
+import { EscolasComponent } from './escolas/escolas.component';
+import { IesComponent } from './ies/ies.component';
 import { ProgramaDisciplinaComponent } from './programa-disciplina/programa-disciplina.component';
 import { DisciplinaComponent } from './disciplina/disciplina.component';
 import { ProfessorPortalLayoutComponent } from './professor-portal/professor-portal-layout.component';
@@ -17,6 +19,8 @@ export const routes: Routes = [
   { path: '', component: InicioComponent }, 
   { path: 'login', component: LoginComponent }, 
   { path: 'dashboard', component: DashboardComponent, canActivate: [adminGuard] },
+  { path: 'ies', component: IesComponent, canActivate: [adminGuard] },
+  { path: 'escolas', component: EscolasComponent, canActivate: [adminGuard] },
   { path: 'professores', component: ProfessoresComponent, canActivate: [adminGuard] },
   { path: 'cursos', component: CursosComponent, canActivate: [adminGuard] },
   { path: 'programa-disciplina/:id', component: ProgramaDisciplinaComponent, canActivate: [adminGuard] },

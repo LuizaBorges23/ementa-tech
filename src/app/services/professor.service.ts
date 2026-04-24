@@ -3,6 +3,32 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth.service';
 
+export interface ProfessorEscola {
+  id: number;
+  nome: string;
+}
+
+export interface ProfessorResponse {
+  id: number;
+  matricula: string;
+  nomeCompleto: string;
+  email: string;
+  telefone: string;
+  ativo: boolean;
+  escola: ProfessorEscola | null;
+}
+
+export interface ProfessorRequest {
+  matricula: string;
+  nomeCompleto: string;
+  email: string;
+  telefone: string;
+  escolaId: number;
+  ativo: boolean;
+  username?: string;
+  password?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProfessorService {
   private readonly apiUrl = 'http://localhost:8081/admin/professores';
@@ -12,16 +38,24 @@ export class ProfessorService {
     private authService: AuthService
   ) {}
 
-  listarProfessores(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl, { headers: this.getHeaders() });
+  listarProfessores(): Observable<ProfessorResponse[]> {
+    return this.http.get<ProfessorResponse[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
-  inativarProfessor(id: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${id}/inativar`, {}, { headers: this.getHeaders() });
+  salvarProfessor(payload: ProfessorRequest): Observable<ProfessorResponse> {
+    return this.http.post<ProfessorResponse>(this.apiUrl, payload, { headers: this.getHeaders() });
   }
 
-  ativarProfessor(id: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${id}/ativar`, {}, { headers: this.getHeaders() });
+  atualizarProfessor(id: number, payload: ProfessorRequest): Observable<ProfessorResponse> {
+    return this.http.put<ProfessorResponse>(`${this.apiUrl}/${id}`, payload, { headers: this.getHeaders() });
+  }
+
+  inativarProfessor(id: number): Observable<ProfessorResponse> {
+    return this.http.patch<ProfessorResponse>(`${this.apiUrl}/${id}/inativar`, {}, { headers: this.getHeaders() });
+  }
+
+  ativarProfessor(id: number): Observable<ProfessorResponse> {
+    return this.http.patch<ProfessorResponse>(`${this.apiUrl}/${id}/ativar`, {}, { headers: this.getHeaders() });
   }
 
   private getHeaders(): HttpHeaders {

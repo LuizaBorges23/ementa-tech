@@ -8,9 +8,11 @@
     </div>
 
     <span class="menu-title">Geral</span>
-    <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">Início</a>
+    <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">Inicio</a>
 
     <span class="menu-title">Estrutura</span>
+    <a routerLink="/ies" routerLinkActive="active" class="menu-item">IES</a>
+    <a routerLink="/escolas" routerLinkActive="active" class="menu-item">Escolas</a>
     <a routerLink="/cursos" routerLinkActive="active" class="menu-item">Cursos</a>
     <a routerLink="/professores" routerLinkActive="active" class="menu-item">Professores</a>
     <a routerLink="/disciplinas" routerLinkActive="active" class="menu-item">Disciplinas</a>
@@ -22,7 +24,7 @@
         <div>
           <p class="eyebrow">Professores</p>
           <h1 class="card-title">Central de gestao de professores</h1>
-          <p class="card-subtitle">Listagem sincronizada com o backend e vinculada aos cursos cadastrados.</p>
+          <p class="card-subtitle">Cadastro, edicao e controle de acesso dos professores integrados com o backend.</p>
         </div>
 
         <div class="stats-grid">
@@ -37,42 +39,128 @@
         </div>
       </header>
 
-      <p class="status-message" *ngIf="carregando">Carregando professores e cursos...</p>
+      <p class="status-message" *ngIf="carregando">Carregando professores, escolas e cursos...</p>
       <p class="status-message error" *ngIf="!carregando && mensagemErro">{{ mensagemErro }}</p>
+      <p class="status-message success" *ngIf="!carregando && !mensagemErro && mensagemSucesso">{{ mensagemSucesso }}</p>
 
-      <div class="table-wrapper" *ngIf="!carregando && !mensagemErro">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Professor</th>
-              <th>Matricula</th>
-              <th>Email</th>
-              <th>Telefone</th>
-              <th>Escola vinculada</th>
-              <th>Curso</th>
-              <th>Status</th>
-              <th>Acoes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let prof of listaProfessores">
-              <td data-label="Professor">{{ prof.nome }}</td>
-              <td data-label="Matricula">{{ prof.matricula }}</td>
-              <td data-label="Email">{{ prof.email }}</td>
-              <td data-label="Telefone">{{ prof.telefone }}</td>
-              <td data-label="Escola vinculada">{{ prof.escolaVinculada }}</td>
-              <td data-label="Curso">{{ prof.curso }}</td>
-              <td data-label="Status"><span class="status-chip" [class.inativo]="!prof.ativo">{{ prof.status }}</span></td>
-              <td data-label="Acoes">
-                <button class="btn-acao inactive" *ngIf="prof.ativo" (click)="inativarProfessor(prof)">Inativar</button>
-                <button class="btn-acao activate" *ngIf="!prof.ativo" (click)="ativarProfessor(prof)">Ativar</button>
-              </td>
-            </tr>
-            <tr *ngIf="!listaProfessores.length">
-              <td colspan="8" class="empty-state">Nenhum professor foi encontrado na integracao com o backend.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="content-grid">
+        <section class="content-card form-card">
+          <div class="section-heading">
+            <div>
+              <p class="section-eyebrow">Formulario</p>
+              <h2>{{ tituloFormulario }}</h2>
+            </div>
+            <span class="section-badge">{{ listaProfessores.length }} cadastrados</span>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Matricula</span>
+              <input type="text" [(ngModel)]="formulario.matricula" name="matriculaProfessor" placeholder="Ex.: 2026005" />
+            </label>
+
+            <label class="field field-span-2">
+              <span>Nome completo</span>
+              <input type="text" [(ngModel)]="formulario.nomeCompleto" name="nomeProfessor" placeholder="Digite o nome do professor" />
+            </label>
+
+            <label class="field">
+              <span>Email</span>
+              <input type="email" [(ngModel)]="formulario.email" name="emailProfessor" placeholder="professor@ementatech.com" />
+            </label>
+
+            <label class="field">
+              <span>Telefone</span>
+              <input type="text" [(ngModel)]="formulario.telefone" name="telefoneProfessor" placeholder="71999990000" />
+            </label>
+
+            <label class="field">
+              <span>Escola vinculada</span>
+              <select [(ngModel)]="formulario.escolaId" name="escolaProfessor">
+                <option [ngValue]="null">Selecione uma escola</option>
+                <option *ngFor="let escola of escolas" [ngValue]="escola.id">{{ escola.nome }}</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Status</span>
+              <select [(ngModel)]="formulario.ativo" name="statusProfessor">
+                <option [ngValue]="true">Ativo</option>
+                <option [ngValue]="false">Inativo</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Usuario de acesso</span>
+              <input type="text" [(ngModel)]="formulario.username" name="usernameProfessor" placeholder="Obrigatorio no cadastro inicial" />
+            </label>
+
+            <label class="field">
+              <span>Senha</span>
+              <input type="password" [(ngModel)]="formulario.password" name="passwordProfessor" placeholder="Obrigatoria no cadastro inicial" />
+            </label>
+          </div>
+
+          <p class="form-help">
+            No primeiro cadastro informe usuario e senha para liberar o login do professor. Na edicao, esses campos podem ficar em branco se voce nao quiser alterar o acesso.
+          </p>
+
+          <div class="form-actions">
+            <button class="btn-primary" type="button" (click)="salvarProfessor()" [disabled]="salvando">
+              {{ salvando ? 'Salvando...' : (editandoId == null ? 'Cadastrar professor' : 'Atualizar professor') }}
+            </button>
+            <button class="btn-secondary" type="button" *ngIf="editandoId != null" (click)="cancelarEdicao()">
+              Cancelar
+            </button>
+          </div>
+        </section>
+
+        <section class="content-card table-card">
+          <div class="section-heading">
+            <div>
+              <p class="section-eyebrow">Listagem</p>
+              <h2>Professores cadastrados</h2>
+            </div>
+          </div>
+
+          <div class="table-wrapper" *ngIf="!carregando && !mensagemErro">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Professor</th>
+                  <th>Matricula</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                  <th>Escola vinculada</th>
+                  <th>Cursos vinculados</th>
+                  <th>Status</th>
+                  <th>Acoes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let prof of listaProfessores">
+                  <td data-label="Professor">{{ prof.nome }}</td>
+                  <td data-label="Matricula">{{ prof.matricula }}</td>
+                  <td data-label="Email">{{ prof.email }}</td>
+                  <td data-label="Telefone">{{ prof.telefone }}</td>
+                  <td data-label="Escola vinculada">{{ prof.escolaVinculada }}</td>
+                  <td data-label="Cursos vinculados">{{ prof.cursosVinculados }}</td>
+                  <td data-label="Status"><span class="status-chip" [class.inativo]="!prof.ativo">{{ prof.status }}</span></td>
+                  <td data-label="Acoes">
+                    <div class="table-actions">
+                      <button class="btn-acao edit" type="button" (click)="editarProfessor(prof)">Editar</button>
+                      <button class="btn-acao inactive" type="button" *ngIf="prof.ativo" (click)="inativarProfessor(prof)">Inativar</button>
+                      <button class="btn-acao activate" type="button" *ngIf="!prof.ativo" (click)="ativarProfessor(prof)">Ativar</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="!listaProfessores.length">
+                  <td colspan="8" class="empty-state">Nenhum professor foi encontrado na integracao com o backend.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </section>
   </main>

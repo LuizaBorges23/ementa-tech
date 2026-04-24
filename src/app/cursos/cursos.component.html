@@ -8,9 +8,11 @@
     </div>
 
     <span class="menu-title">Geral</span>
-    <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">Início</a>
+    <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">Inicio</a>
 
     <span class="menu-title">Estrutura</span>
+    <a routerLink="/ies" routerLinkActive="active" class="menu-item">IES</a>
+    <a routerLink="/escolas" routerLinkActive="active" class="menu-item">Escolas</a>
     <a routerLink="/cursos" routerLinkActive="active" class="menu-item">Cursos</a>
     <a routerLink="/professores" routerLinkActive="active" class="menu-item">Professores</a>
     <a routerLink="/disciplinas" routerLinkActive="active" class="menu-item">Disciplinas</a>
@@ -22,53 +24,142 @@
         <div>
           <p class="eyebrow">Cursos</p>
           <h1 class="card-title">Central de gestao de cursos</h1>
-          <p class="card-subtitle">Listagem integrada ao backend com matriz e ementa por programa.</p>
+          <p class="card-subtitle">Cadastro, edicao e controle de status dos cursos integrados ao backend.</p>
         </div>
-        <div class="header-badge">{{ listaCursos.length }} cursos</div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>Cursos ativos</span>
+            <strong>{{ totalCursosAtivos }}</strong>
+          </div>
+          <div class="stat-card">
+            <span>Cursos cadastrados</span>
+            <strong>{{ listaCursos.length }}</strong>
+          </div>
+        </div>
       </header>
 
-      <p class="status-message" *ngIf="carregando">Carregando cursos, disciplinas e programas...</p>
+      <p class="status-message" *ngIf="carregando">Carregando cursos, disciplinas, escolas e professores...</p>
       <p class="status-message error" *ngIf="!carregando && mensagemErro">{{ mensagemErro }}</p>
+      <p class="status-message success" *ngIf="!carregando && !mensagemErro && mensagemSucesso">{{ mensagemSucesso }}</p>
 
-      <div class="table-wrapper" *ngIf="!carregando && !mensagemErro">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Nome do curso</th>
-              <th>Sigla</th>
-              <th>Escola vinculada</th>
-              <th>Coordenador</th>
-              <th>Data de cadastro</th>
-              <th>Status</th>
-              <th>Acoes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let curso of listaCursos">
-              <td data-label="Nome do curso">
-                <div class="course-name">{{ curso.nome }}</div>
-                <div class="course-meta">{{ totalProgramas(curso) }} programa(s) vinculado(s)</div>
-              </td>
-              <td data-label="Sigla">{{ curso.sigla }}</td>
-              <td data-label="Escola vinculada">{{ curso.escola }}</td>
-              <td data-label="Coordenador">{{ curso.coordenador }}</td>
-              <td data-label="Data de cadastro">{{ curso.dataCadastro }}</td>
-              <td data-label="Status"><span class="status-chip">{{ curso.status }}</span></td>
-              <td data-label="Acoes">
-                <button class="btn-acao edit" (click)="abrirMatriz(curso)">Ver matriz</button>
-              </td>
-            </tr>
-            <tr *ngIf="!listaCursos.length">
-              <td colspan="7" class="empty-state">Nenhum curso foi encontrado na integracao com o backend.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="content-grid">
+        <section class="content-card form-card">
+          <div class="section-heading">
+            <div>
+              <p class="section-eyebrow">Formulario</p>
+              <h2>{{ tituloFormulario }}</h2>
+            </div>
+            <span class="section-badge">{{ listaCursos.length }} cadastrados</span>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Sigla</span>
+              <input type="text" [(ngModel)]="formulario.sigla" name="siglaCurso" placeholder="Ex.: BES" />
+            </label>
+
+            <label class="field field-span-2">
+              <span>Nome do curso</span>
+              <input type="text" [(ngModel)]="formulario.descricao" name="descricaoCurso" placeholder="Digite o nome do curso" />
+            </label>
+
+            <label class="field">
+              <span>Escola vinculada</span>
+              <select [(ngModel)]="formulario.escolaId" name="escolaCurso" (ngModelChange)="aoAlterarEscola()">
+                <option [ngValue]="null">Selecione uma escola</option>
+                <option *ngFor="let escola of escolas" [ngValue]="escola.id">{{ escola.nome }}</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Coordenador</span>
+              <select [(ngModel)]="formulario.coordenadorCursoId" name="coordenadorCurso">
+                <option [ngValue]="null">Sem coordenador</option>
+                <option *ngFor="let professor of professoresDisponiveis" [ngValue]="professor.id">
+                  {{ professor.nomeCompleto }}
+                </option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Data de cadastro</span>
+              <input type="date" [(ngModel)]="formulario.dataCadastro" name="dataCurso" />
+            </label>
+
+            <label class="field">
+              <span>Status</span>
+              <select [(ngModel)]="formulario.ativo" name="statusCurso">
+                <option [ngValue]="true">Ativo</option>
+                <option [ngValue]="false">Inativo</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-primary" type="button" (click)="salvarCurso()" [disabled]="salvando">
+              {{ salvando ? 'Salvando...' : (editandoId == null ? 'Cadastrar curso' : 'Atualizar curso') }}
+            </button>
+            <button class="btn-secondary" type="button" *ngIf="editandoId != null" (click)="cancelarEdicao()">
+              Cancelar
+            </button>
+          </div>
+        </section>
+
+        <section class="content-card table-card">
+          <div class="section-heading">
+            <div>
+              <p class="section-eyebrow">Listagem</p>
+              <h2>Cursos cadastrados</h2>
+            </div>
+          </div>
+
+          <div class="table-wrapper" *ngIf="!carregando && !mensagemErro">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nome do curso</th>
+                  <th>Sigla</th>
+                  <th>Escola vinculada</th>
+                  <th>Coordenador</th>
+                  <th>Data de cadastro</th>
+                  <th>Status</th>
+                  <th>Acoes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let curso of listaCursos">
+                  <td data-label="Nome do curso">
+                    <div class="course-name">{{ curso.nome }}</div>
+                    <div class="course-meta">{{ totalProgramas(curso) }} programa(s) vinculado(s)</div>
+                  </td>
+                  <td data-label="Sigla">{{ curso.sigla }}</td>
+                  <td data-label="Escola vinculada">{{ curso.escola }}</td>
+                  <td data-label="Coordenador">{{ curso.coordenador }}</td>
+                  <td data-label="Data de cadastro">{{ curso.dataCadastro }}</td>
+                  <td data-label="Status"><span class="status-chip" [class.inativo]="!curso.ativo">{{ curso.status }}</span></td>
+                  <td data-label="Acoes">
+                    <div class="table-actions">
+                      <button class="btn-acao edit" type="button" (click)="editarCurso(curso)">Editar</button>
+                      <button class="btn-acao matrix" type="button" (click)="abrirMatriz(curso)">Ver matriz</button>
+                      <button class="btn-acao inactive" type="button" *ngIf="curso.ativo" (click)="inativarCurso(curso)">Inativar</button>
+                      <button class="btn-acao activate" type="button" *ngIf="!curso.ativo" (click)="ativarCurso(curso)">Ativar</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="!listaCursos.length">
+                  <td colspan="7" class="empty-state">Nenhum curso foi encontrado na integracao com o backend.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </section>
 
     <div class="modal-overlay" *ngIf="mostrarMatriz">
       <section class="matriz-modal">
-        <button class="btn-fechar" (click)="fecharMatriz()" aria-label="Fechar matriz">x</button>
+        <button class="btn-fechar" type="button" (click)="fecharMatriz()" aria-label="Fechar matriz">x</button>
 
         <p class="modal-eyebrow">Matriz do curso</p>
         <h2 class="modal-title">{{ cursoSelecionado?.nome }}</h2>
@@ -90,7 +181,7 @@
                 <td data-label="Semestre">{{ disciplina.semestre }}</td>
                 <td data-label="Sigla">{{ disciplina.sigla }}</td>
                 <td data-label="Disciplina">{{ disciplina.nome }}</td>
-                <td data-label="Status"><span class="status-chip">{{ disciplina.status }}</span></td>
+                <td data-label="Status"><span class="status-chip" [class.inativo]="disciplina.status === 'Inativo'">{{ disciplina.status }}</span></td>
                 <td data-label="Programa">
                   <a class="btn-link" [routerLink]="['/programa-disciplina', disciplina.id]">Ver detalhes</a>
                 </td>
