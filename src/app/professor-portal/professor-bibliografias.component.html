@@ -79,43 +79,7 @@
           </table>
         </div>
 
-        <div class="form-grid">
-          <label class="field field-wide">
-            <span>Título do livro</span>
-            <input type="text" [(ngModel)]="novaBasica.titulo" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-          <label class="field">
-            <span>Autores do livro</span>
-            <input type="text" [(ngModel)]="novaBasica.autores" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-          <label class="field">
-            <span>Editora</span>
-            <input type="text" [(ngModel)]="novaBasica.editora" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-          <label class="field">
-            <span>ISBN</span>
-            <input type="text" [(ngModel)]="novaBasica.isbn" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-          <label class="field">
-            <span>Ano de publicação</span>
-            <input type="number" [(ngModel)]="novaBasica.anoPublicacao" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-          <label class="field">
-            <span>Localização</span>
-            <select [(ngModel)]="novaBasica.localizacao" [disabled]="programa.bibliografiasBasicas.length >= 3">
-              <option value="FISICO">Físico</option>
-              <option value="DIGITAL">Digital</option>
-            </select>
-          </label>
-          <label class="field" *ngIf="novaBasica.localizacao === 'DIGITAL'">
-            <span>Link do livro</span>
-            <input type="text" [(ngModel)]="novaBasica.linkLivro" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-          <label class="field" *ngIf="novaBasica.localizacao === 'FISICO'">
-            <span>Posição na estante</span>
-            <input type="text" [(ngModel)]="novaBasica.posicaoEstante" [disabled]="programa.bibliografiasBasicas.length >= 3" />
-          </label>
-        </div>
+       
 
         <button
           type="button"
@@ -163,43 +127,7 @@
           </table>
         </div>
 
-        <div class="form-grid">
-          <label class="field field-wide">
-            <span>Título do livro</span>
-            <input type="text" [(ngModel)]="novaComplementar.titulo" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-          <label class="field">
-            <span>Autores do livro</span>
-            <input type="text" [(ngModel)]="novaComplementar.autores" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-          <label class="field">
-            <span>Editora</span>
-            <input type="text" [(ngModel)]="novaComplementar.editora" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-          <label class="field">
-            <span>ISBN</span>
-            <input type="text" [(ngModel)]="novaComplementar.isbn" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-          <label class="field">
-            <span>Ano de publicação</span>
-            <input type="number" [(ngModel)]="novaComplementar.anoPublicacao" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-          <label class="field">
-            <span>Localização</span>
-            <select [(ngModel)]="novaComplementar.localizacao" [disabled]="programa.bibliografiasComplementares.length >= 5">
-              <option value="DIGITAL">Digital</option>
-              <option value="FISICO">Físico</option>
-            </select>
-          </label>
-          <label class="field" *ngIf="novaComplementar.localizacao === 'DIGITAL'">
-            <span>Link do livro</span>
-            <input type="text" [(ngModel)]="novaComplementar.linkLivro" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-          <label class="field" *ngIf="novaComplementar.localizacao === 'FISICO'">
-            <span>Posição na estante</span>
-            <input type="text" [(ngModel)]="novaComplementar.posicaoEstante" [disabled]="programa.bibliografiasComplementares.length >= 5" />
-          </label>
-        </div>
+      
 
         <button
           type="button"
