@@ -1,36 +1,63 @@
-# EmentaTech 
+# EmentaTech Frontend
 
-Aplicacao Angular do sistema **EmentaTech**, responsavel pelas interfaces de administracao academica e portal do professor.
+Aplicacao Angular do sistema **EmentaTech**, responsavel pela interface administrativa e pelo portal do professor do projeto de controle de programas de disciplina e bibliografia.
 
-O frontend consome o backend Spring Boot do projeto complementar e trabalha com autenticacao via `Basic Auth` apos o login.
+O frontend se integra com o backend Spring Boot do projeto complementar, usando autenticacao via `Basic Auth` apos o login.
 
-## Visao Geral
+## Objetivo
 
-O sistema foi organizado em dois grandes fluxos:
+O sistema foi construído para apoiar a gestao academica de:
 
-- **Administrador**
-  - dashboard inicial
-  - gestao de professores
-  - gestao de cursos
-  - gestao de disciplinas
-  - visualizacao de programa da disciplina
+- IES
+- escolas
+- cursos
+- professores
+- disciplinas
+- programas de disciplina
+- bibliografias basicas e complementares
 
-- **Professor**
-  - meus dados
-  - informacoes bibliograficas
-  - programa da disciplina
+Tambem existe um portal dedicado ao professor, com acesso aos seus dados, bibliografias e programas vinculados.
 
-Tambem existe tratamento para professor inativado: quando um professor perde o status ativo no sistema, o login dele passa a ser bloqueado e o frontend exibe a mensagem diretamente na tela de acesso.
+## Funcionalidades Atuais
+
+### Area do administrador
+
+- tela inicial institucional
+- login com redirecionamento por perfil
+- dashboard administrativo
+- gestao de IES
+- gestao de escolas
+- gestao de cursos
+- gestao de professores
+- listagem de disciplinas
+- visualizacao de programa da disciplina
+- ativacao e inativacao de professores
+- ativacao e inativacao de cursos
+
+### Area do professor
+
+- meus dados
+- informacoes bibliograficas
+- programa disciplina
+
+### Regras ja refletidas na interface
+
+- professor inativado nao consegue acessar o portal
+- o login do administrador vai para `/dashboard`
+- o login do professor vai para `/professor/meus-dados`
+- a sessao do usuario fica armazenada no `localStorage`
 
 ## Stack
 
-- Angular standalone components
+- Angular 19
 - TypeScript
+- standalone components
+- Angular Router
+- Angular Forms
 - CSS puro
-- Angular Router com guards
-- Integracao HTTP com backend Spring Boot
+- RxJS
 
-## Estrutura Principal
+## Estrutura do Projeto
 
 ```text
 src/
@@ -38,16 +65,21 @@ src/
     app.routes.ts
     cursos/
     disciplina/
+    escolas/
+    ies/
+    professor-portal/
     professores/
     programa-disciplina/
-    professor-portal/
     services/
-  auth.service.ts
   admin.guard.ts
-  professor.guard.ts
+  auth.service.ts
+  cadastro.html
+  dashboard.component.ts
+  dashboard.html
+  inicio.component.css
   inicio.component.ts
   login.component.ts
-  cadastro.html
+  professor.guard.ts
   styles.css
 ```
 
@@ -55,14 +87,16 @@ src/
 
 ### Publicas
 
-- `/` : tela inicial
-- `/login` : autenticacao
+- `/`
+- `/login`
 
 ### Administrador
 
 - `/dashboard`
-- `/professores`
+- `/ies`
+- `/escolas`
 - `/cursos`
+- `/professores`
 - `/disciplinas`
 - `/programa-disciplina/:id`
 
@@ -72,33 +106,44 @@ src/
 - `/professor/informacoes-bibliograficas`
 - `/professor/programa-disciplina`
 
-## Integracao com Backend
+## Integracao com o Backend
 
-O frontend foi configurado para consumir o backend em:
+O frontend esta configurado para consumir o backend em:
 
 ```text
 http://localhost:8081
 ```
 
-Endpoints principais usados pelo front:
+### Fluxo de autenticacao
+
+1. O usuario envia `username` e `password` para `POST /auth/login`
+2. O frontend monta o cabecalho `Basic Auth`
+3. A sessao e salva no `localStorage`
+4. As telas protegidas passam a consumir os endpoints administrativos ou do professor
+
+### Endpoints principais usados pelo frontend
 
 - `POST /auth/login`
+- `GET /admin/ies`
+- `GET /admin/escolas`
+- `GET /admin/cursos`
+- `POST /admin/cursos`
+- `PUT /admin/cursos/{id}`
+- `PATCH /admin/cursos/{id}/inativar`
+- `PATCH /admin/cursos/{id}/ativar`
 - `GET /admin/professores`
+- `POST /admin/professores`
+- `PUT /admin/professores/{id}`
 - `PATCH /admin/professores/{id}/inativar`
 - `PATCH /admin/professores/{id}/ativar`
-- `GET /admin/cursos`
 - `GET /admin/disciplinas`
 - `GET /admin/programas-disciplinas`
 - `GET /professor/me`
 - `GET /professor/programas`
 
-Observacoes importantes:
-
-- o login usa `username` e `password`
-- depois do login, o frontend guarda o `Basic Auth` no `localStorage`
-- o backend precisa estar preparado para aceitar requisicoes vindas de `http://localhost:4200`
-
 ## Credenciais de Teste
+
+As credenciais abaixo dependem do backend seedado corretamente.
 
 ### Administrador
 
@@ -107,11 +152,11 @@ Observacoes importantes:
 
 ### Professores
 
-- usuario: `osvaldo.melo@ementatech.com`
+- usuario: `carlos.leandro@ementatech.com`
 - senha: `prof123`
 - usuario: `joelma.pacheco@ementatech.com`
 - senha: `prof123`
-- usuario: `carlos.leandro@ementatech.com`
+- usuario: `osvaldo.melo@ementatech.com`
 - senha: `prof123`
 - usuario: `orivaldo.paranainfa@ementatech.com`
 - senha: `prof123`
@@ -120,17 +165,17 @@ Observacoes importantes:
 
 ### 1. Suba o backend
 
-Este frontend depende do backend do projeto:
+Este frontend depende do backend localizado no projeto complementar:
 
 ```text
-../projeto-back-desenvolvimento-de-sistemas-grupo-8-main
+C:\Users\lulub\Downloads\projeto-back-desenvolvimento-de-sistemas-grupo-8-main
 ```
 
-O backend deve estar rodando na porta `8081`.
+O backend deve estar rodando em `http://localhost:8081`.
 
 ### 2. Suba o frontend
 
-Com o estado atual deste workspace, os comandos validados para execucao foram:
+Neste workspace, as dependencias ja estao presentes em `node_modules/`. Os comandos validados para execucao usam diretamente o binario local do Angular:
 
 ```powershell
 node_modules\.bin\ng.cmd serve --host 0.0.0.0 --port 4200
@@ -142,38 +187,49 @@ node_modules\.bin\ng.cmd serve --host 0.0.0.0 --port 4200
 node_modules\.bin\ng.cmd build
 ```
 
-Saida gerada em:
+Saida:
 
 ```text
 dist/sistema-controle-academico
 ```
 
-## Regras de Acesso
+## Observacoes Importantes do Workspace
 
-- usuarios com `ROLE_ADMIN` sao direcionados para `/dashboard`
-- usuarios com `ROLE_PROFESSOR` sao direcionados para `/professor/meus-dados`
-- professor inativado nao consegue autenticar
-- ao inativar um professor pelo painel administrativo, o acesso dele ao portal tambem e bloqueado
+- este workspace possui `package-lock.json` e `node_modules/`, mas atualmente nao possui `package.json` na raiz
+- por isso, os comandos do Angular devem ser executados pelo binario local em `node_modules\.bin`
+- se o backend for alterado, reinicie a aplicacao Spring Boot antes de testar
+- se o navegador continuar mostrando uma versao antiga da interface, use `Ctrl+F5`
 
-## Principais Arquivos
+## Regras de Navegacao e Acesso
 
-- `src/app/app.routes.ts` : mapa de rotas
-- `src/auth.service.ts` : login, sessao e cabecalho de autorizacao
-- `src/login.component.ts` : logica da tela de login
-- `src/cadastro.html` : template da tela de login
-- `src/styles.css` : estilos globais
-- `src/app/services/` : camada de integracao HTTP
-- `src/app/professor-portal/` : portal do professor
+- `adminGuard` protege as rotas administrativas
+- `professorGuard` protege o portal do professor
+- usuarios com `ROLE_ADMIN` entram no painel administrativo
+- usuarios com `ROLE_PROFESSOR` entram no portal do professor
+- professor inativado recebe bloqueio de acesso no backend e mensagem de erro no login
+
+## Arquivos-Chave
+
+- `src/app/app.routes.ts`: definicao de rotas
+- `src/auth.service.ts`: login, sessao e cabecalho de autenticacao
+- `src/admin.guard.ts`: protecao das rotas do administrador
+- `src/professor.guard.ts`: protecao das rotas do professor
+- `src/dashboard.component.ts`: dashboard administrativo
+- `src/app/services/`: camada de integracao HTTP
+- `src/app/professor-portal/`: telas do portal do professor
+- `src/styles.css`: estilos globais
+
+## Estado Atual da Interface
+
+O frontend foi ajustado para funcionar melhor em desktop, tablet e mobile. As telas administrativas seguem um mesmo padrao visual, e o portal do professor foi alinhado ao restante do sistema.
 
 ## Validacao
 
-Ultima validacao local realizada neste frontend:
+Validacoes locais ja realizadas neste projeto:
 
-- `node_modules\.bin\ng.cmd build` executado com sucesso
+- build do Angular concluido com sucesso
+- integracao com backend validada em ambiente local
 
-## Observacoes
+## Licenca
 
-- o projeto usa componentes standalone
-- a navegacao protegida depende dos guards `adminGuard` e `professorGuard`
-- a interface foi ajustada para funcionar melhor em desktop, tablet e mobile
-- o menu do portal do professor foi alinhado visualmente ao painel administrativo
+Projeto academico para fins educacionais.
