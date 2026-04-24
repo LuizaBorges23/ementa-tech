@@ -1,4 +1,4 @@
-# EmentaTech Frontend
+# EmentaTech 
 
 Aplicacao Angular do sistema **EmentaTech**, responsavel pelas interfaces de administracao academica e portal do professor.
 
@@ -107,13 +107,13 @@ Observacoes importantes:
 
 ### Professores
 
-- usuario: `professor1`
+- usuario: `osvaldo.melo@ementatech.com`
 - senha: `prof123`
-- usuario: `professor2`
+- usuario: `joelma.pacheco@ementatech.com`
 - senha: `prof123`
-- usuario: `professor3`
+- usuario: `carlos.leandro@ementatech.com`
 - senha: `prof123`
-- usuario: `professor4`
+- usuario: `orivaldo.paranainfa@ementatech.com`
 - senha: `prof123`
 
 ## Como Executar
