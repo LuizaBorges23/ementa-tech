@@ -113,4 +113,29 @@ export class ProfessoresComponent implements OnInit {
       }
     });
   }
+
+  ativarProfessor(professor: ProfessorTabela): void {
+    if (professor.ativo) {
+      return;
+    }
+
+    const confirmacao = confirm(`Deseja realmente ativar o professor ${professor.nome}?`);
+    if (!confirmacao) {
+      return;
+    }
+
+    this.professorService.ativarProfessor(professor.id).subscribe({
+      next: () => this.carregarProfessores(),
+      error: (erro: any) => {
+        console.error('Erro ao ativar professor:', erro);
+
+        if (erro.status === 401 || erro.status === 403) {
+          alert('Erro de seguranca ao ativar o professor. Faca login novamente.');
+          return;
+        }
+
+        alert('Nao foi possivel ativar o professor no backend agora.');
+      }
+    });
+  }
 }

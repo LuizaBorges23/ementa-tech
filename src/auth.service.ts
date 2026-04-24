@@ -52,6 +52,21 @@ export class AuthService {
     return sessao.role === 'ROLE_ADMIN';
   }
 
+  isProfessor(): boolean {
+    const sessao = this.getSessao();
+    if (!sessao) return false;
+
+    return sessao.role === 'ROLE_PROFESSOR';
+  }
+
+  getNomeProfessor(): string | null {
+    return this.getSessao()?.nomeProfessor ?? null;
+  }
+
+  getSessaoAtual(): SessaoUsuario | null {
+    return this.getSessao();
+  }
+
   getAuthorizationHeader(): string | null {
     return this.getSessao()?.basicAuth ?? null;
   }

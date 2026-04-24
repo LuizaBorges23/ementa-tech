@@ -1,0 +1,215 @@
+<section class="professor-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Professor</p>
+      <h1>Informações Bibliográficas</h1>
+      <p class="page-subtitle">Cada disciplina deverá ter 03 bibliografias básicas e 05 bibliografias complementares.</p>
+    </div>
+
+    <label class="program-selector">
+      <span>Programa Disciplina</span>
+      <select
+        [ngModel]="programaSelecionadoId"
+        (ngModelChange)="selecionarPrograma($event)"
+        [disabled]="carregando || !programas.length"
+      >
+        <option [ngValue]="null">Selecione</option>
+        <option *ngFor="let programa of programas" [ngValue]="programa.id">
+          {{ programa.disciplina?.sigla }} - {{ programa.disciplina?.descricao }}
+        </option>
+      </select>
+    </label>
+  </header>
+
+  <p class="feedback erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+  <p class="feedback sucesso" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</p>
+
+  <div class="content-card loading-card" *ngIf="carregando">Carregando bibliografias do professor...</div>
+
+  <ng-container *ngIf="!carregando">
+    <div class="content-card empty-state" *ngIf="!programaSelecionado">
+      Nenhum programa foi encontrado para este professor.
+    </div>
+
+    <div class="program-highlight" *ngIf="programaSelecionado as programa">
+      <div>
+        <h2>{{ programa.disciplina?.sigla }} - {{ programa.disciplina?.descricao }}</h2>
+        <p>{{ programa.semestre }}º semestre · {{ programa.disciplina?.cargaHoraria }}h</p>
+      </div>
+      <div class="count-badges">
+        <span>Básicas: {{ programa.bibliografiasBasicas.length }}/3</span>
+        <span>Complementares: {{ programa.bibliografiasComplementares.length }}/5</span>
+      </div>
+    </div>
+
+    <div class="bibliografia-grid" *ngIf="programaSelecionado as programa">
+      <section class="content-card">
+        <div class="section-heading">
+          <h2>Bibliografias Básicas</h2>
+          <p>Título do livro, autores do livro, editora, ISBN, ano de publicação, localização e detalhamento de acesso.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Título do livro</th>
+                <th>Autores do livro</th>
+                <th>Editora</th>
+                <th>ISBN</th>
+                <th>Ano de publicação</th>
+                <th>Localização</th>
+                <th>Link do livro / posição na estante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bibliografia of programa.bibliografiasBasicas">
+                <td data-label="Titulo do livro">{{ bibliografia.titulo }}</td>
+                <td data-label="Autores">{{ bibliografia.autores }}</td>
+                <td data-label="Editora">{{ bibliografia.editora }}</td>
+                <td data-label="ISBN">{{ bibliografia.isbn }}</td>
+                <td data-label="Ano">{{ bibliografia.anoPublicacao }}</td>
+                <td data-label="Localizacao">{{ formatarLocalizacao(bibliografia.localizacao) }}</td>
+                <td data-label="Link ou estante">{{ detalheLocalizacao(bibliografia) }}</td>
+              </tr>
+              <tr *ngIf="!programa.bibliografiasBasicas.length">
+                <td colspan="7">Nenhuma bibliografia básica cadastrada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-grid">
+          <label class="field field-wide">
+            <span>Título do livro</span>
+            <input type="text" [(ngModel)]="novaBasica.titulo" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+          <label class="field">
+            <span>Autores do livro</span>
+            <input type="text" [(ngModel)]="novaBasica.autores" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+          <label class="field">
+            <span>Editora</span>
+            <input type="text" [(ngModel)]="novaBasica.editora" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+          <label class="field">
+            <span>ISBN</span>
+            <input type="text" [(ngModel)]="novaBasica.isbn" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+          <label class="field">
+            <span>Ano de publicação</span>
+            <input type="number" [(ngModel)]="novaBasica.anoPublicacao" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+          <label class="field">
+            <span>Localização</span>
+            <select [(ngModel)]="novaBasica.localizacao" [disabled]="programa.bibliografiasBasicas.length >= 3">
+              <option value="FISICO">Físico</option>
+              <option value="DIGITAL">Digital</option>
+            </select>
+          </label>
+          <label class="field" *ngIf="novaBasica.localizacao === 'DIGITAL'">
+            <span>Link do livro</span>
+            <input type="text" [(ngModel)]="novaBasica.linkLivro" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+          <label class="field" *ngIf="novaBasica.localizacao === 'FISICO'">
+            <span>Posição na estante</span>
+            <input type="text" [(ngModel)]="novaBasica.posicaoEstante" [disabled]="programa.bibliografiasBasicas.length >= 3" />
+          </label>
+        </div>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="salvarBasica()"
+          [disabled]="salvandoBasica || programa.bibliografiasBasicas.length >= 3"
+        >
+          {{ programa.bibliografiasBasicas.length >= 3 ? 'Limite de 03 básicas atingido' : (salvandoBasica ? 'Salvando...' : 'Cadastrar bibliografia básica') }}
+        </button>
+      </section>
+
+      <section class="content-card">
+        <div class="section-heading">
+          <h2>Bibliografias Complementares</h2>
+          <p>As bibliografias complementares seguem a mesma estrutura e devem totalizar 05 registros por disciplina.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Título do livro</th>
+                <th>Autores do livro</th>
+                <th>Editora</th>
+                <th>ISBN</th>
+                <th>Ano de publicação</th>
+                <th>Localização</th>
+                <th>Link do livro / posição na estante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bibliografia of programa.bibliografiasComplementares">
+                <td data-label="Titulo do livro">{{ bibliografia.titulo }}</td>
+                <td data-label="Autores">{{ bibliografia.autores }}</td>
+                <td data-label="Editora">{{ bibliografia.editora }}</td>
+                <td data-label="ISBN">{{ bibliografia.isbn }}</td>
+                <td data-label="Ano">{{ bibliografia.anoPublicacao }}</td>
+                <td data-label="Localizacao">{{ formatarLocalizacao(bibliografia.localizacao) }}</td>
+                <td data-label="Link ou estante">{{ detalheLocalizacao(bibliografia) }}</td>
+              </tr>
+              <tr *ngIf="!programa.bibliografiasComplementares.length">
+                <td colspan="7">Nenhuma bibliografia complementar cadastrada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-grid">
+          <label class="field field-wide">
+            <span>Título do livro</span>
+            <input type="text" [(ngModel)]="novaComplementar.titulo" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+          <label class="field">
+            <span>Autores do livro</span>
+            <input type="text" [(ngModel)]="novaComplementar.autores" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+          <label class="field">
+            <span>Editora</span>
+            <input type="text" [(ngModel)]="novaComplementar.editora" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+          <label class="field">
+            <span>ISBN</span>
+            <input type="text" [(ngModel)]="novaComplementar.isbn" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+          <label class="field">
+            <span>Ano de publicação</span>
+            <input type="number" [(ngModel)]="novaComplementar.anoPublicacao" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+          <label class="field">
+            <span>Localização</span>
+            <select [(ngModel)]="novaComplementar.localizacao" [disabled]="programa.bibliografiasComplementares.length >= 5">
+              <option value="DIGITAL">Digital</option>
+              <option value="FISICO">Físico</option>
+            </select>
+          </label>
+          <label class="field" *ngIf="novaComplementar.localizacao === 'DIGITAL'">
+            <span>Link do livro</span>
+            <input type="text" [(ngModel)]="novaComplementar.linkLivro" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+          <label class="field" *ngIf="novaComplementar.localizacao === 'FISICO'">
+            <span>Posição na estante</span>
+            <input type="text" [(ngModel)]="novaComplementar.posicaoEstante" [disabled]="programa.bibliografiasComplementares.length >= 5" />
+          </label>
+        </div>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="salvarComplementar()"
+          [disabled]="salvandoComplementar || programa.bibliografiasComplementares.length >= 5"
+        >
+          {{ programa.bibliografiasComplementares.length >= 5 ? 'Limite de 05 complementares atingido' : (salvandoComplementar ? 'Salvando...' : 'Cadastrar bibliografia complementar') }}
+        </button>
+      </section>
+    </div>
+  </ng-container>
+</section>

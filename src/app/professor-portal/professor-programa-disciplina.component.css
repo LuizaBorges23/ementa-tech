@@ -1,0 +1,294 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.professor-page {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  font-family: var(--font-main);
+}
+
+.page-header,
+.program-layout,
+.content-card,
+.hero-copy,
+.summary-grid article,
+.unit-card {
+  min-width: 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: end;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  color: #ffffff;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.program-selector {
+  display: grid;
+  gap: 8px;
+  min-width: 320px;
+  max-width: 100%;
+}
+
+.program-selector span {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.program-selector select {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.content-card {
+  border-radius: 24px;
+  background: rgba(239, 240, 246, 0.98);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
+  padding: 24px;
+}
+
+.program-layout {
+  display: grid;
+  gap: 18px;
+}
+
+.hero-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.card-eyebrow {
+  margin: 0 0 8px;
+  color: #5b6082;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hero-card h2 {
+  margin: 0 0 10px;
+  color: #111322;
+  font-size: 1.5rem;
+  overflow-wrap: anywhere;
+}
+
+.hero-description {
+  margin: 0;
+  color: #374169;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-badges span,
+.chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #edf1ff;
+  color: #22305b;
+  font-weight: 700;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #5b6082;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.summary-grid strong {
+  color: #111322;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.details-grid h3 {
+  margin: 0 0 14px;
+  color: #111322;
+  font-size: 1.1rem;
+}
+
+.body-copy {
+  margin: 0;
+  color: #374169;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.unit-card {
+  padding: 16px;
+  border-radius: 18px;
+  background: #f7f8ff;
+  border: 1px solid #dce0f8;
+}
+
+.unit-card strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #0c0a3e;
+}
+
+.unit-card ul,
+.bibliografia-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #374169;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.bibliografia-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.bibliografia-columns h4 {
+  margin: 0 0 10px;
+  color: #0c0a3e;
+}
+
+.feedback.erro {
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(213, 76, 76, 0.16);
+  color: #ffffff;
+}
+
+.loading-card,
+.empty-state {
+  color: #5b6082;
+}
+
+@media (max-width: 1040px) {
+  .summary-grid,
+  .unit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .page-header,
+  .hero-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .program-selector {
+    min-width: 0;
+  }
+
+  .summary-grid,
+  .details-grid,
+  .bibliografia-columns,
+  .unit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .content-card {
+    padding: 18px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .professor-page {
+    gap: 16px;
+  }
+
+  .program-selector {
+    width: 100%;
+  }
+
+  .content-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .hero-card h2 {
+    font-size: 1.28rem;
+  }
+
+  .hero-badges {
+    width: 100%;
+  }
+
+  .hero-badges span,
+  .chip {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

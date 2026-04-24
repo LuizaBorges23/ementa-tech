@@ -1,0 +1,331 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.professor-page {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  font-family: var(--font-main);
+}
+
+.page-header,
+.content-card,
+.program-highlight,
+.bibliografia-grid {
+  min-width: 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: end;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  color: #ffffff;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.program-selector {
+  display: grid;
+  gap: 8px;
+  min-width: 320px;
+  max-width: 100%;
+}
+
+.program-selector span {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.program-selector select {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.feedback {
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.feedback.erro {
+  background: rgba(213, 76, 76, 0.16);
+  color: #ffd8d8;
+}
+
+.feedback.sucesso {
+  background: rgba(72, 187, 120, 0.16);
+  color: #d9ffea;
+}
+
+.content-card,
+.program-highlight {
+  border-radius: 24px;
+  background: rgba(239, 240, 246, 0.98);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
+}
+
+.content-card {
+  padding: 24px;
+}
+
+.program-highlight {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.program-highlight h2 {
+  margin: 0 0 6px;
+  color: #111322;
+  overflow-wrap: anywhere;
+}
+
+.program-highlight p {
+  margin: 0;
+  color: #5b6082;
+}
+
+.count-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.count-badges span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #edf1ff;
+  color: #22305b;
+  font-weight: 700;
+}
+
+.bibliografia-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.section-heading h2 {
+  margin: 0 0 6px;
+  color: #111322;
+  font-size: 1.35rem;
+}
+
+.section-heading p {
+  margin: 0 0 18px;
+  color: #5b6082;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 18px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 860px;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #dfe3f2;
+  vertical-align: top;
+}
+
+.data-table th {
+  color: #0c0a3e;
+  font-size: 0.92rem;
+}
+
+.data-table td {
+  color: #283150;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field span {
+  color: #374169;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  border: 1px solid #d5daee;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  color: #111322;
+  font-family: inherit;
+  background: #ffffff;
+}
+
+.field-wide {
+  grid-column: span 2;
+}
+
+.primary-button {
+  border: 0;
+  border-radius: 16px;
+  padding: 13px 18px;
+  background: #0c0a3e;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.empty-state,
+.loading-card {
+  color: #5b6082;
+  line-height: 1.6;
+}
+
+@media (max-width: 920px) {
+  .page-header,
+  .program-highlight {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .program-selector {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-wide {
+    grid-column: auto;
+  }
+
+  .content-card,
+  .program-highlight {
+    padding: 18px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .professor-page {
+    gap: 16px;
+  }
+
+  .program-selector {
+    width: 100%;
+  }
+
+  .table-wrapper {
+    overflow-x: visible;
+    background: transparent;
+  }
+
+  .data-table,
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr,
+  .data-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .data-table {
+    min-width: 0;
+  }
+
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tr {
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #dfe3f2;
+  }
+
+  .data-table td {
+    display: grid;
+    grid-template-columns: minmax(112px, 44%) 1fr;
+    gap: 10px;
+    padding: 0;
+    border: 0;
+  }
+
+  .data-table td + td {
+    margin-top: 10px;
+  }
+
+  .data-table td::before {
+    content: attr(data-label);
+    color: #5b6082;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .data-table td[colspan] {
+    display: block;
+    text-align: center;
+  }
+
+  .data-table td[colspan]::before {
+    content: none;
+  }
+}

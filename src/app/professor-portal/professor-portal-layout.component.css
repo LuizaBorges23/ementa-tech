@@ -1,0 +1,184 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: var(--font-main);
+}
+
+.professor-shell {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at top right, rgba(78, 88, 214, 0.22), transparent 24%),
+    linear-gradient(135deg, #05031f 0%, #09073a 100%);
+  color: #111322;
+  overflow-x: hidden;
+}
+
+.professor-sidebar {
+  width: 240px;
+  min-height: 100vh;
+  padding: 30px 0;
+  background: rgba(232, 232, 232, 0.98);
+  border-right: 1px solid rgba(7, 4, 52, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-icon {
+  background: linear-gradient(180deg, rgba(21, 15, 108, 1) 0%, rgba(19, 15, 80, 1) 54.3%, rgba(16, 14, 52, 1) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+.icon2 {
+  width: 36px;
+  height: 34px;
+}
+
+.menu-title {
+  align-self: flex-start;
+  margin-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sidebar-nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  width: 100%;
+  padding: 12px 30px;
+  text-decoration: none;
+  color: #070434;
+  background: transparent;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: left;
+  overflow-wrap: anywhere;
+  transition: background 0.3s;
+}
+
+.nav-item:hover,
+.logout-button:hover {
+  background-color: #d1d1d1;
+}
+
+.nav-item.active {
+  background-color: #070434;
+  color: #ffffff;
+}
+
+.logout-button {
+  width: 100%;
+  margin-top: auto;
+  border: 0;
+  padding: 12px 30px;
+  background: transparent;
+  color: #8d1d18;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.3s;
+}
+
+.professor-main {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+  display: flex;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .professor-shell {
+    flex-direction: column;
+  }
+
+  .professor-sidebar {
+    width: 100%;
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 0;
+    padding: 24px 18px;
+  }
+
+  .menu-title {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .sidebar-nav {
+    width: auto;
+    display: contents;
+  }
+
+  .nav-item,
+  .logout-button {
+    width: auto;
+    min-width: 150px;
+    margin: 0 8px;
+    border-radius: 999px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .professor-sidebar {
+    padding: 20px 16px;
+  }
+
+  .professor-main {
+    padding: 18px;
+  }
+
+  .sidebar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-item,
+  .logout-button {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    border-radius: 0;
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .brand-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon2 {
+    width: 30px;
+    height: 28px;
+  }
+}

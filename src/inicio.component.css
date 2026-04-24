@@ -1,0 +1,170 @@
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+.inicio-page {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 32px 20px;
+    background:
+        radial-gradient(circle at 50% 32%, rgba(66, 84, 255, 0.26), transparent 28%),
+        radial-gradient(circle at 22% 18%, rgba(53, 43, 173, 0.24), transparent 30%),
+        linear-gradient(180deg, #1c1467 0%, #110c44 48%, #090626 100%);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.inicio-page::before,
+.inicio-page::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.inicio-page::before {
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 36%, rgba(132, 150, 255, 0.16), transparent 24%),
+        radial-gradient(circle at 50% 110%, rgba(6, 4, 30, 0.88), transparent 40%);
+}
+
+.inicio-page::after {
+    width: 680px;
+    height: 680px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    background: radial-gradient(circle, rgba(116, 118, 255, 0.1), transparent 58%);
+    filter: blur(12px);
+}
+
+.inicio-shell {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 520px);
+    text-align: center;
+}
+
+.inicio-badge {
+    margin-top: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(39, 32, 129, 0.94) 0%, rgba(24, 18, 88, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow:
+        0 10px 28px rgba(5, 4, 29, 0.34),
+        inset 0 0 0 1px rgba(145, 154, 255, 0.08);
+}
+
+.inicio-badge__icon {
+    width: 30px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.inicio-title {
+    margin: 0;
+    font-family: var(--font-title);
+    font-size: clamp(4.25rem, 11vw, 5.9rem);
+    font-weight: 700;
+    line-height: 0.8;
+    letter-spacing: -0.09em;
+    text-shadow: 0 14px 34px rgba(4, 4, 25, 0.22);
+}
+
+.inicio-title span {
+    display: block;
+}
+
+.inicio-title span:last-child {
+    margin-top: -8px;
+}
+
+.inicio-subtitle {
+    max-width: 260px;
+    margin: 14px 0 0;
+    font-size: clamp(0.9rem, 2.65vw, 0.7rem);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.inicio-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 88px;
+    margin-top: 18px;
+    width: 190px;
+    height: 66px;
+    padding: 12px 24px;
+    border-radius: 51.575px;
+    background: linear-gradient(180deg, #150F6C 0.96%, #100E34 99.98%, #26217B 99.99%, #070533 100%);
+    color: #ffffff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow:
+        0 12px 24px rgba(6, 4, 29, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.inicio-button:hover {
+    background: linear-gradient(180deg, #342cd0 0%, #1a1668 100%);
+    box-shadow: 0 14px 28px rgba(6, 4, 29, 0.42);
+    transform: translateY(-2px);
+}
+
+.inicio-button:focus-visible {
+    outline: 3px solid rgba(132, 150, 255, 0.4);
+    outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+    .inicio-page {
+        padding: 24px 18px;
+    }
+
+    .inicio-shell {
+        width: min(100%, 360px);
+    }
+}
+
+@media (max-width: 520px) {
+    .inicio-title {
+        font-size: clamp(3.3rem, 21vw, 4.5rem);
+    }
+
+    .inicio-badge {
+        width: 48px;
+        height: 48px;
+    }
+
+    .inicio-subtitle {
+        max-width: 220px;
+        font-size: 0.82rem;
+    }
+
+    .inicio-button {
+        min-width: 84px;
+        padding: 10px 18px;
+    }
+}

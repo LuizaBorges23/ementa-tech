@@ -1,0 +1,133 @@
+<section class="professor-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Professor</p>
+      <h1>Programa Disciplina</h1>
+      <p class="page-subtitle">Programa completo com sigla da disciplina, ementa, bibliografia e processo de avaliação.</p>
+    </div>
+
+    <label class="program-selector">
+      <span>Programa Disciplina</span>
+      <select
+        [ngModel]="programaSelecionadoId"
+        (ngModelChange)="selecionarPrograma($event)"
+        [disabled]="carregando || !programas.length"
+      >
+        <option [ngValue]="null">Selecione</option>
+        <option *ngFor="let programa of programas" [ngValue]="programa.id">
+          {{ programa.disciplina?.sigla }} - {{ programa.disciplina?.descricao }}
+        </option>
+      </select>
+    </label>
+  </header>
+
+  <div class="content-card loading-card" *ngIf="carregando">Carregando programa da disciplina...</div>
+  <p class="feedback erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+
+  <ng-container *ngIf="!carregando">
+    <div class="content-card empty-state" *ngIf="!programaSelecionado">
+      Nenhum programa foi encontrado para este professor.
+    </div>
+
+    <div class="program-layout" *ngIf="programaSelecionado as programa">
+      <section class="content-card hero-card">
+        <div class="hero-copy">
+          <p class="card-eyebrow">Programa Disciplina</p>
+          <h2>{{ programa.disciplina?.sigla }} - {{ programa.disciplina?.descricao }}</h2>
+          <p class="hero-description">{{ programa.ementa }}</p>
+        </div>
+        <div class="hero-badges">
+          <span>{{ programa.semestre }}º semestre</span>
+          <span>{{ programa.disciplina?.cargaHoraria }}h</span>
+          <span>{{ formatarStatus(programa.ativo) }}</span>
+        </div>
+      </section>
+
+      <section class="summary-grid">
+        <article class="content-card">
+          <span class="field-label">Sigla da disciplina</span>
+          <strong>{{ programa.disciplina?.sigla }}</strong>
+        </article>
+        <article class="content-card">
+          <span class="field-label">Descrição da disciplina</span>
+          <strong>{{ programa.disciplina?.descricao }}</strong>
+        </article>
+        <article class="content-card">
+          <span class="field-label">Semestre</span>
+          <strong>{{ programa.semestre }}º semestre</strong>
+        </article>
+        <article class="content-card">
+          <span class="field-label">Carga horária</span>
+          <strong>{{ programa.disciplina?.cargaHoraria }}h</strong>
+        </article>
+        <article class="content-card">
+          <span class="field-label">Data do cadastro</span>
+          <strong>{{ formatarData(programa.dataCadastro) }}</strong>
+        </article>
+        <article class="content-card">
+          <span class="field-label">Status</span>
+          <strong>{{ formatarStatus(programa.ativo) }}</strong>
+        </article>
+      </section>
+
+      <div class="details-grid">
+        <section class="content-card">
+          <h3>Disciplinas que são pré-requisitos para a disciplina que compõe o programa</h3>
+          <div class="chip-list" *ngIf="programa.prerequisitos.length; else semPrerequisitos">
+            <span class="chip" *ngFor="let prerequisito of programa.prerequisitos">
+              {{ prerequisito.sigla }} - {{ prerequisito.descricao }}
+            </span>
+          </div>
+          <ng-template #semPrerequisitos>
+            <p class="body-copy">Nenhum pré-requisito informado.</p>
+          </ng-template>
+        </section>
+
+        <section class="content-card">
+          <h3>Texto que descreve o objetivo com as competências e habilidades que se espera</h3>
+          <p class="body-copy">{{ programa.competenciasHabilidades }}</p>
+        </section>
+
+        <section class="content-card full-width">
+          <h3>Conteúdo programático</h3>
+          <div class="unit-grid">
+            <article class="unit-card" *ngFor="let unidade of listarUnidades(programa.conteudoProgramatico)">
+              <strong>{{ unidade.titulo }}</strong>
+              <ul>
+                <li *ngFor="let topico of unidade.topicos">{{ topico }}</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-card">
+          <h3>Texto que descreve a metodologia utilizada</h3>
+          <p class="body-copy">{{ programa.metodologia }}</p>
+        </section>
+
+        <section class="content-card">
+          <h3>Texto que descreve o processo de avaliação</h3>
+          <p class="body-copy">{{ programa.processoAvaliacao }}</p>
+        </section>
+
+        <section class="content-card full-width">
+          <h3>Bibliografia</h3>
+          <div class="bibliografia-columns">
+            <div>
+              <h4>Bibliografias básicas</h4>
+              <ul class="bibliografia-list">
+                <li *ngFor="let bibliografia of programa.bibliografiasBasicas">{{ formatarBibliografia(bibliografia) }}</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Bibliografias complementares</h4>
+              <ul class="bibliografia-list">
+                <li *ngFor="let bibliografia of programa.bibliografiasComplementares">{{ formatarBibliografia(bibliografia) }}</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </ng-container>
+</section>

@@ -8,7 +8,7 @@
     </div>
 
     <span class="menu-title">Geral</span>
-    <a routerLink="/dashboard" class="menu-item">Inicio</a>
+    <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">Início</a>
 
     <span class="menu-title">Estrutura</span>
     <a routerLink="/cursos" routerLinkActive="active" class="menu-item">Cursos</a>
@@ -45,13 +45,13 @@
           </thead>
           <tbody>
             <tr *ngFor="let disc of listaDisciplinas">
-              <td>{{ disc.sigla }}</td>
-              <td>{{ disc.descricao }}</td>
-              <td>{{ disc.cargaHoraria }}</td>
-              <td>{{ disc.escola }}</td>
-              <td>{{ disc.curso }}</td>
-              <td>{{ disc.dataCadastro }}</td>
-              <td><span class="status-chip" [class.inativo]="disc.status === 'Inativo'">{{ disc.status }}</span></td>
+              <td data-label="Sigla">{{ disc.sigla }}</td>
+              <td data-label="Descricao">{{ disc.descricao }}</td>
+              <td data-label="Carga horaria">{{ disc.cargaHoraria }}</td>
+              <td data-label="Escola vinculada">{{ disc.escola }}</td>
+              <td data-label="Curso vinculado">{{ disc.curso }}</td>
+              <td data-label="Data de cadastro">{{ disc.dataCadastro }}</td>
+              <td data-label="Status"><span class="status-chip" [class.inativo]="disc.status === 'Inativo'">{{ disc.status }}</span></td>
             </tr>
             <tr *ngIf="!listaDisciplinas.length">
               <td colspan="7" class="empty-state">Nenhuma disciplina foi encontrada na integracao com o backend.</td>

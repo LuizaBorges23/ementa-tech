@@ -1,0 +1,110 @@
+<section class="professor-page" *ngIf="!carregando && professor as perfil">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Professor</p>
+      <h1>Meus dados</h1>
+      <p class="page-subtitle">Cadastro acadêmico e titulações integrados ao backend do professor.</p>
+    </div>
+  </header>
+
+  <p class="feedback erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+  <p class="feedback sucesso" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</p>
+
+  <div class="overview-grid">
+    <article class="overview-card destaque">
+      <span>Professor</span>
+      <strong>{{ perfil.nomeCompleto }}</strong>
+      <p>{{ perfil.escola?.nome ?? 'Escola não informada' }}</p>
+    </article>
+    <article class="overview-card">
+      <span>Matrícula</span>
+      <strong>{{ perfil.matricula }}</strong>
+    </article>
+    <article class="overview-card">
+      <span>E-mail</span>
+      <strong>{{ perfil.email }}</strong>
+    </article>
+    <article class="overview-card">
+      <span>Telefone</span>
+      <strong>{{ perfil.telefone }}</strong>
+    </article>
+    <article class="overview-card">
+      <span>Status</span>
+      <strong>{{ perfil.ativo ? 'Ativo' : 'Inativo' }}</strong>
+    </article>
+  </div>
+
+  <div class="content-grid">
+    <section class="content-card">
+      <div class="section-heading">
+        <h2>Adicionar titulação</h2>
+        <p>Preencha os campos exatamente como exigidos para os dados acadêmicos do professor.</p>
+      </div>
+
+      <div class="form-grid">
+        <label class="field">
+          <span>Categoria da titulação</span>
+          <select [(ngModel)]="novaFormacao.categoriaTitulacao">
+            <option value="">Selecione</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.valor">{{ categoria.label }}</option>
+          </select>
+        </label>
+
+        <label class="field field-wide">
+          <span>Nome da instituição que concluiu a titulação</span>
+          <input type="text" [(ngModel)]="novaFormacao.instituicaoConclusao" />
+        </label>
+
+        <label class="field field-wide">
+          <span>Nome do curso que fez</span>
+          <input type="text" [(ngModel)]="novaFormacao.nomeCurso" />
+        </label>
+
+        <label class="field">
+          <span>Ano de conclusão</span>
+          <input type="number" [(ngModel)]="novaFormacao.anoConclusao" />
+        </label>
+      </div>
+
+      <button type="button" class="primary-button" (click)="salvarFormacao()" [disabled]="salvando">
+        {{ salvando ? 'Salvando...' : 'Salvar titulação' }}
+      </button>
+    </section>
+
+    <section class="content-card">
+      <div class="section-heading">
+        <h2>Titulações cadastradas</h2>
+        <p>Categoria da titulação, instituição, curso e ano de conclusão do professor.</p>
+      </div>
+
+      <div class="table-wrapper" *ngIf="perfil.formacoes.length; else semFormacoes">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Categoria da titulação</th>
+              <th>Nome da instituição que concluiu a titulação</th>
+              <th>Nome do curso que fez</th>
+              <th>Ano de conclusão</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let formacao of perfil.formacoes">
+              <td data-label="Categoria da titulacao">{{ formatarCategoria(formacao.categoriaTitulacao) }}</td>
+              <td data-label="Instituicao">{{ formacao.instituicaoConclusao }}</td>
+              <td data-label="Curso">{{ formacao.nomeCurso }}</td>
+              <td data-label="Ano de conclusao">{{ formacao.anoConclusao }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #semFormacoes>
+        <div class="empty-state">Nenhuma titulação foi cadastrada para este professor ainda.</div>
+      </ng-template>
+    </section>
+  </div>
+</section>
+
+<section class="professor-page" *ngIf="carregando">
+  <div class="content-card loading-card">Carregando dados do professor...</div>
+</section>

@@ -5,7 +5,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-inicio',
   standalone: true,
   imports: [RouterLink], 
-  templateUrl: './inicio.html'
+  templateUrl: './inicio.html',
+  styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
  

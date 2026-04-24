@@ -20,6 +20,10 @@ export class ProfessorService {
     return this.http.patch<any>(`${this.apiUrl}/${id}/inativar`, {}, { headers: this.getHeaders() });
   }
 
+  ativarProfessor(id: number): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}/ativar`, {}, { headers: this.getHeaders() });
+  }
+
   private getHeaders(): HttpHeaders {
     const authorization = this.authService.getAuthorizationHeader();
 

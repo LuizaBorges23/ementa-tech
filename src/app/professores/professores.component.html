@@ -8,7 +8,7 @@
     </div>
 
     <span class="menu-title">Geral</span>
-    <a routerLink="/dashboard" class="menu-item">Inicio</a>
+    <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">Início</a>
 
     <span class="menu-title">Estrutura</span>
     <a routerLink="/cursos" routerLinkActive="active" class="menu-item">Cursos</a>
@@ -56,16 +56,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let prof of listaProfessores">
-              <td>{{ prof.nome }}</td>
-              <td>{{ prof.matricula }}</td>
-              <td>{{ prof.email }}</td>
-              <td>{{ prof.telefone }}</td>
-              <td>{{ prof.escolaVinculada }}</td>
-              <td>{{ prof.curso }}</td>
-              <td><span class="status-chip" [class.inativo]="!prof.ativo">{{ prof.status }}</span></td>
-              <td>
+              <td data-label="Professor">{{ prof.nome }}</td>
+              <td data-label="Matricula">{{ prof.matricula }}</td>
+              <td data-label="Email">{{ prof.email }}</td>
+              <td data-label="Telefone">{{ prof.telefone }}</td>
+              <td data-label="Escola vinculada">{{ prof.escolaVinculada }}</td>
+              <td data-label="Curso">{{ prof.curso }}</td>
+              <td data-label="Status"><span class="status-chip" [class.inativo]="!prof.ativo">{{ prof.status }}</span></td>
+              <td data-label="Acoes">
                 <button class="btn-acao inactive" *ngIf="prof.ativo" (click)="inativarProfessor(prof)">Inativar</button>
-                <span class="tag-muted" *ngIf="!prof.ativo">Registro inativo</span>
+                <button class="btn-acao activate" *ngIf="!prof.ativo" (click)="ativarProfessor(prof)">Ativar</button>
               </td>
             </tr>
             <tr *ngIf="!listaProfessores.length">

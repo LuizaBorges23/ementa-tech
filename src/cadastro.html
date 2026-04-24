@@ -25,6 +25,8 @@
     <label for="senha">Senha</label>
     <input type="password" name="senha" [(ngModel)]="senha" placeholder="admin123" />
 
+    <p class="form-feedback error" [style.display]="mensagemErro ? 'block' : 'none'">{{ mensagemErro }}</p>
+
     <button type="button" (click)="aoEntrar()" class="btn-entrar">Entrar</button>
 </form>
                 

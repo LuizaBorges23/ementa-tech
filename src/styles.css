@@ -102,18 +102,7 @@ body, html {
     background: #070434;
 }
 
-.logocatolicaca-1,
-.logocatolicaca-1 * {
-    box-sizing: border-box;
-}
 
-.logocatolicaca-1 {
-    width: 266px;
-    height: 194px;
-    position: relative;
-    object-fit: cover;
-    aspect-ratio: 266/194;
-}
 
 .login,
 .login * {
@@ -298,6 +287,20 @@ body, html {
     color: #333;
 }
 
+.form-feedback {
+    margin: -8px 0 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.form-feedback.error {
+    background: rgba(213, 76, 76, 0.18);
+    border: 1px solid rgba(213, 76, 76, 0.35);
+    color: #fff1f1;
+}
+
 
 .btn-entrar {
     display: block; 
@@ -433,4 +436,105 @@ body, html {
     font-family: var(--font-main);
     margin-top: auto;
     margin-bottom: auto;
+}
+
+@media (max-width: 1080px) {
+    .dashboard-layout {
+        flex-direction: column;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 0;
+        padding: 24px 18px;
+    }
+
+    .menu-title {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .menu-item {
+        width: auto;
+        min-width: 150px;
+        text-align: center;
+        border-radius: 999px;
+        margin: 0 8px;
+    }
+
+    .main-content {
+        padding: 24px;
+    }
+
+    .login-layout {
+        flex-direction: column;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .login-left {
+        min-height: 180px;
+    }
+
+    .login-right {
+        padding: 120px 24px 48px;
+    }
+}
+
+@media (max-width: 720px) {
+    .main-content {
+        padding: 18px;
+    }
+
+    .cards-container {
+        width: 100%;
+        gap: 18px;
+    }
+
+    .card {
+        width: min(100%, 280px);
+        height: auto;
+        min-height: 180px;
+    }
+
+    .card-number {
+        font-size: 52px;
+    }
+
+    .menu-item {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .login-left {
+        min-height: 120px;
+    }
+
+    .login-right {
+        padding: 104px 18px 36px;
+    }
+
+    .login2 {
+        width: 92px;
+        height: 92px;
+        top: 20px;
+        right: 20px;
+    }
+
+    .icon1 {
+        width: 42px;
+        height: 40px;
+    }
+
+    .form-container {
+        max-width: none;
+    }
 }

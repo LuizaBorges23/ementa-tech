@@ -12,6 +12,7 @@ import { AuthService, SessaoUsuario } from './auth.service';
 export class LoginComponent {
   username = '';
   senha = '';
+  mensagemErro = '';
 
   constructor(
     private authService: AuthService,
@@ -19,35 +20,44 @@ export class LoginComponent {
   ) {}
 
   aoEntrar() {
+    this.mensagemErro = '';
+
     if (!this.username.trim() || !this.senha) {
-      alert('Informe usuario e senha para entrar.');
+      this.mensagemErro = 'Informe usuario e senha para entrar.';
       return;
     }
 
     this.authService.login(this.username, this.senha).subscribe({
       next: (sessao: SessaoUsuario) => {
+        this.mensagemErro = '';
+
         if (sessao.role === 'ROLE_ADMIN') {
           this.router.navigate(['/dashboard']);
           return;
         }
 
-        alert('Login realizado, mas a area do professor ainda esta em construcao.');
+        this.router.navigate(['/professor/meus-dados']);
       },
       error: (erro) => {
         this.authService.clearSession();
         const backendMessage = typeof erro?.error?.message === 'string' ? erro.error.message : '';
 
         if (erro.status === 0) {
-          alert('Nao foi possivel conectar ao backend em http://localhost:8081. Verifique se o Spring Boot esta em execucao.');
+          this.mensagemErro = 'Nao foi possivel conectar ao backend em http://localhost:8081. Verifique se o Spring Boot esta em execucao.';
+          return;
+        }
+
+        if (backendMessage.toLowerCase().includes('inativo')) {
+          this.mensagemErro = backendMessage;
           return;
         }
 
         if (erro.status === 401 || erro.status === 403 || backendMessage.includes('senha inv') || backendMessage.includes('Usu')) {
-          alert('Usuario ou senha invalidos no backend. Para administrador, use usuario admin e senha admin123.');
+          this.mensagemErro = 'Usuario ou senha invalidos no backend. Para administrador, use usuario admin e senha admin123.';
           return;
         }
 
-        alert('Nao foi possivel autenticar no backend agora.');
+        this.mensagemErro = 'Nao foi possivel autenticar no backend agora.';
       }
     });
   }
