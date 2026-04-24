@@ -65,9 +65,14 @@ src/
     app.routes.ts
     cursos/
     disciplina/
+<<<<<<< HEAD
     escolas/
     ies/
     professor-portal/
+=======
+    ies/
+    escolas/
+>>>>>>> 81ef53dc28475f945c1980357e7b7c661b68bb06
     professores/
     programa-disciplina/
     services/
