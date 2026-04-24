@@ -38,6 +38,8 @@ src/
     app.routes.ts
     cursos/
     disciplina/
+    ies/
+    escolas/
     professores/
     programa-disciplina/
     professor-portal/
