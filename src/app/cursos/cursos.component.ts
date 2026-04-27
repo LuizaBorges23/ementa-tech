@@ -131,7 +131,7 @@ export class CursosComponent implements OnInit {
       error: (erro: any) => {
         console.error('Erro ao buscar cursos, disciplinas e programas:', erro);
         this.carregando = false;
-        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel carregar a listagem de cursos no backend agora.');
+        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel carregar a listagem de cursos.');
       }
     });
   }
@@ -205,7 +205,7 @@ export class CursosComponent implements OnInit {
       },
       error: (erro: any) => {
         console.error('Erro ao inativar curso:', erro);
-        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel inativar o curso no backend agora.');
+        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel inativar o curso .');
       }
     });
   }
@@ -227,7 +227,7 @@ export class CursosComponent implements OnInit {
       },
       error: (erro: any) => {
         console.error('Erro ao ativar curso:', erro);
-        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel ativar o curso no backend agora.');
+        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel ativar o curso.');
       }
     });
   }

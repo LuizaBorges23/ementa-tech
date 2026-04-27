@@ -24,7 +24,6 @@
         <div>
           <p class="eyebrow">Cursos</p>
           <h1 class="card-title">Central de gestao de cursos</h1>
-          <p class="card-subtitle">Cadastro, edicao e controle de status dos cursos integrados ao backend.</p>
         </div>
 
         <div class="stats-grid">
@@ -148,7 +147,7 @@
                   </td>
                 </tr>
                 <tr *ngIf="!listaCursos.length">
-                  <td colspan="7" class="empty-state">Nenhum curso foi encontrado na integracao com o backend.</td>
+                  <td colspan="7" class="empty-state">Nenhum curso foi encontrado na integracao .</td>
                 </tr>
               </tbody>
             </table>
@@ -163,7 +162,7 @@
 
         <p class="modal-eyebrow">Matriz do curso</p>
         <h2 class="modal-title">{{ cursoSelecionado?.nome }}</h2>
-        <p class="modal-subtitle">Disciplinas vindas dos programas cadastrados no Spring Boot.</p>
+        <p class="modal-subtitle">Disciplinas vindas dos programas cadastrados.</p>
 
         <div class="table-wrapper modal-table">
           <table class="tabela-matriz">

@@ -56,11 +56,11 @@ export class DisciplinaComponent implements OnInit {
         this.carregando = false;
 
         if (erro.status === 401 || erro.status === 403) {
-          alert('Erro de seguranca ao carregar disciplinas. Faca login novamente e confirme se o backend aceita as mesmas credenciais usadas no sistema.');
+          alert('Erro de seguranca ao carregar disciplinas. Faca login novamente.');
           return;
         }
 
-        this.mensagemErro = 'Nao foi possivel carregar a listagem de disciplinas no backend agora.';
+        this.mensagemErro = 'Nao foi possivel carregar a listagem de disciplinas.';
       }
     });
   }

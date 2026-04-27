@@ -43,7 +43,7 @@ export class LoginComponent {
         const backendMessage = typeof erro?.error?.message === 'string' ? erro.error.message : '';
 
         if (erro.status === 0) {
-          this.mensagemErro = 'Nao foi possivel conectar ao backend em http://localhost:8081. Verifique se o Spring Boot esta em execucao.';
+          this.mensagemErro = 'Nao foi possivel conectar ao backend em http://localhost:8081. ';
           return;
         }
 
@@ -53,11 +53,11 @@ export class LoginComponent {
         }
 
         if (erro.status === 401 || erro.status === 403 || backendMessage.includes('senha inv') || backendMessage.includes('Usu')) {
-          this.mensagemErro = 'Usuario ou senha invalidos no backend. Para administrador, use usuario admin e senha admin123.';
+          this.mensagemErro = 'Usuario ou senha invalidos.';
           return;
         }
 
-        this.mensagemErro = 'Nao foi possivel autenticar no backend agora.';
+        this.mensagemErro = 'Nao foi possivel autenticar agora.';
       }
     });
   }

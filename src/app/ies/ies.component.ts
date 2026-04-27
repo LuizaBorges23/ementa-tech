@@ -77,7 +77,7 @@ export class IesComponent implements OnInit {
       error: (erro) => {
         console.error('Erro ao carregar IES e escolas:', erro);
         this.carregando = false;
-        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel carregar as IES no backend agora.');
+        this.mensagemErro = this.formatarErro(erro, 'Nao foi possivel carregar as IES .');
       }
     });
   }
