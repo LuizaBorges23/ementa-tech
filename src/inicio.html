@@ -1,21 +1,341 @@
-<div class="inicio-page">
-    <main class="inicio-shell">
-        
-             <div class="inicio-badge" aria-hidden="true">
-            <svg class="inicio-badge__icon" width="51" height="46" viewBox="0 0 51 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M25.5 13.4167V40.25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M6.375 34.5C5.81141 34.5 5.27091 34.2981 4.8724 33.9386C4.47388 33.5792 4.25 33.0917 4.25 32.5833V7.66667C4.25 7.15834 4.47388 6.67082 4.8724 6.31138C5.27091 5.95193 5.81141 5.75 6.375 5.75H17C19.2543 5.75 21.4163 6.55774 23.0104 7.99551C24.6045 9.43329 25.5 11.3833 25.5 13.4167C25.5 11.3833 26.3955 9.43329 27.9896 7.99551C29.5837 6.55774 31.7457 5.75 34 5.75H44.625C45.1886 5.75 45.7291 5.95193 46.1276 6.31138C46.5261 6.67082 46.75 7.15834 46.75 7.66667V32.5833C46.75 33.0917 46.5261 33.5792 46.1276 33.9386C45.7291 34.2981 45.1886 34.5 44.625 34.5H31.875C30.1842 34.5 28.5627 35.1058 27.3672 36.1841C26.1716 37.2625 25.5 38.725 25.5 40.25C25.5 38.725 24.8284 37.2625 23.6328 36.1841C22.4373 35.1058 20.8158 34.5 19.125 34.5H6.375Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </div>
+<div class="inicio-page" [class.modo-split]="modoVisualizacao === 'lado-a-lado'">
 
-        <h1 class="inicio-title">
-            <span>Ementa</span>
-            <span>Tech</span>
-        </h1>
+    <!-- Efeitos de iluminação atmosférica de fundo -->
+    <div class="ambient-glow glow-top-left" aria-hidden="true"></div>
+    <div class="ambient-glow glow-bottom-right" aria-hidden="true"></div>
+    <div class="bg-grid-pattern" aria-hidden="true"></div>
 
+    <!-- Layout Split Screen: Coluna de Apresentação (Esquerda) + Coluna de Autenticação (Direita) -->
+    <div class="split-container">
 
-        <p class="inicio-subtitle">Estruturando o ensino, conectando o conhecimento.</p>
+        <!-- ========================================================
+             COLUNA ESQUERDA: Identidade Institucional & Storytelling
+             ======================================================== -->
+        <section class="brand-column">
 
-        <a routerLink="/login" class="inicio-button">ENTRAR</a>
-    </main>
+            <!-- Topo da Marca -->
+            <header class="brand-top-nav">
+                <div class="brand-logo-badge">
+                    <svg class="brand-logo-icon" width="22" height="20" viewBox="0 0 51 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.5 13.4167V40.25" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M6.375 34.5C5.81141 34.5 5.27091 34.2981 4.8724 33.9386C4.47388 33.5792 4.25 33.0917 4.25 32.5833V7.66667C4.25 7.15834 4.47388 6.67082 4.8724 6.31138C5.27091 5.95193 5.81141 5.75 6.375 5.75H17C19.2543 5.75 21.4163 6.55774 23.0104 7.99551C24.6045 9.43329 25.5 11.3833 25.5 13.4167C25.5 11.3833 26.3955 9.43329 27.9896 7.99551C29.5837 6.55774 31.7457 5.75 34 5.75H44.625C45.1886 5.75 45.7291 5.95193 46.1276 6.31138C46.5261 6.67082 46.75 7.15834 46.75 7.66667V32.5833C46.75 33.0917 46.5261 33.5792 46.1276 33.9386C45.7291 34.2981 45.1886 34.5 44.625 34.5H31.875C30.1842 34.5 28.5627 35.1058 27.3672 36.1841C26.1716 37.2625 25.5 38.725 25.5 40.25C25.5 38.725 24.8284 37.2625 23.6328 36.1841C22.4373 35.1058 20.8158 34.5 19.125 34.5H6.375Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Ementa <strong class="brand-accent">Tech</strong></span>
+                    <span class="brand-sub">UCSAL • Sistema Acadêmico</span>
+                </div>
+            </header>
+
+            <!-- Centro da Coluna: Hero -->
+            <div class="brand-hero">
+                <!-- Tag de Plataforma -->
+                <div class="platform-tag">
+                    <span class="platform-dot"></span>
+                    <span>Plataforma Integrada de Gestão</span>
+                </div>
+
+                <!-- Título Principal -->
+                <h1 class="hero-title">
+                    <span>Ementa</span>
+                    <span class="hero-title-accent">Tech</span>
+                </h1>
+                <span class="hero-caption">Estrutura Curricular Inteligente</span>
+
+                <!-- Subtítulo -->
+                <p class="hero-subtitle">
+                    Estruturando o ensino, conectando o conhecimento. Centralização inteligente de matrizes curriculares, programas de disciplina e bibliografias em conformidade acadêmica.
+                </p>
+
+                <!-- Cards dos Pilares Acadêmicos -->
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="pillar-info">
+                            <strong>Matrizes Curriculares</strong>
+                            <span>Mapeamento de pré-requisitos e cargas horárias</span>
+                        </div>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+                        </div>
+                        <div class="pillar-info">
+                            <strong>Docentes & Coordenação</strong>
+                            <span>Planos de ensino, ementas e bibliografias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rodapé da Coluna Esquerda -->
+            <footer class="brand-footer">
+                <span>Universidade Católica do Salvador</span>
+                <span>•</span>
+                <span>Ambiente Institucional Seguro</span>
+            </footer>
+
+        </section>
+
+        <!-- ========================================================
+             COLUNA DIREITA: Portal de Autenticação com 2 Campos (Professor & Admin)
+             ======================================================== -->
+        <aside class="auth-column">
+
+            <!-- Topo do Painel de Autenticação -->
+            <div class="auth-header">
+                <div class="auth-status-tag">
+                    <span class="status-pulse-dot"></span>
+                    <span>Portal Autenticado • Online</span>
+                </div>
+
+                <!-- Botão de Alternância: Modo Abas / Modo Lado a Lado -->
+                <button type="button" class="btn-mode-toggle" (click)="alternarModoVisualizacao()" [title]="modoVisualizacao === 'abas' ? 'Exibir os 2 formulários juntos' : 'Exibir em abas'">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                    </svg>
+                    <span>{{ modoVisualizacao === 'abas' ? 'Ver lado a lado' : 'Ver em abas' }}</span>
+                </button>
+            </div>
+
+            <!-- Centro do Painel -->
+            <div class="auth-body">
+
+                <!-- Título da Seção -->
+                <div class="auth-heading">
+                    <div class="auth-heading-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="auth-title">Autenticação</h2>
+                        <p class="auth-subtitle">Escolha seu perfil institucional para acessar</p>
+                    </div>
+                </div>
+
+                <!-- SELETOR DE PERFIL (ABAS) - Exibido quando modoVisualizacao === 'abas' -->
+                <div *ngIf="modoVisualizacao === 'abas'" class="auth-tabs-row">
+                    <button type="button" 
+                        class="tab-btn" 
+                        [class.active-prof]="abaAtiva === 'professor'"
+                        (click)="selecionarAba('professor')">
+                        <span class="tab-emoji">🎓</span>
+                        <span class="tab-text">Professor</span>
+                        <span class="tab-dot" *ngIf="abaAtiva === 'professor'"></span>
+                    </button>
+
+                    <button type="button" 
+                        class="tab-btn" 
+                        [class.active-admin]="abaAtiva === 'admin'"
+                        (click)="selecionarAba('admin')">
+                        <span class="tab-emoji">🛡️</span>
+                        <span class="tab-text">Administrador</span>
+                        <span class="tab-dot" *ngIf="abaAtiva === 'admin'"></span>
+                    </button>
+                </div>
+
+                <!-- ALERTA DE ERRO OU SUCESSO -->
+                <div *ngIf="mensagemErro" class="auth-alert alert-error">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-text">{{ mensagemErro }}</span>
+                    <button type="button" class="alert-close" (click)="fecharAlerta()">✕</button>
+                </div>
+
+                <div *ngIf="mensagemSucesso" class="auth-alert alert-success">
+                    <span class="alert-icon">✅</span>
+                    <span class="alert-text">{{ mensagemSucesso }}</span>
+                    <button type="button" class="alert-close" (click)="fecharAlerta()">✕</button>
+                </div>
+
+                <!-- CONTAINER DOS FORMULÁRIOS -->
+                <div class="forms-wrapper" [class.forms-grid]="modoVisualizacao === 'lado-a-lado'">
+
+                    <!-- ==============================================
+                         CARD 1: AUTENTICAÇÃO DO PROFESSOR (DOCENTE)
+                         ============================================== -->
+                    <div class="auth-card card-professor" *ngIf="abaAtiva === 'professor' || modoVisualizacao === 'lado-a-lado'">
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <span class="card-header-emoji">🎓</span>
+                                <div>
+                                    <h3 class="card-title">Portal do Docente</h3>
+                                    <span class="card-subtitle">Ementas e planos pedagógicos</span>
+                                </div>
+                            </div>
+                            <span class="card-badge badge-prof">Docente</span>
+                        </div>
+
+                        <form (ngSubmit)="aoEntrar('professor')" class="card-form">
+                            <!-- Campo Usuário do Professor -->
+                            <div class="form-group">
+                                <div class="form-label-row">
+                                    <label for="prof-usuario">Usuário ou Matrícula</label>
+                                    <button type="button" class="demo-fill-btn" (click)="preencherDemo('professor')">
+                                        Demo
+                                    </button>
+                                </div>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <input type="text" id="prof-usuario" name="prof-usuario" 
+                                        [(ngModel)]="usernameProfessor" 
+                                        placeholder="ex: professor ou 202401" 
+                                        required 
+                                        autocomplete="username" />
+                                </div>
+                            </div>
+
+                            <!-- Campo Senha do Professor -->
+                            <div class="form-group">
+                                <div class="form-label-row">
+                                    <label for="prof-senha">Senha Docente</label>
+                                    <a routerLink="/login" class="forgot-link">Esqueceu?</a>
+                                </div>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                    <input [type]="mostrarSenhaProfessor ? 'text' : 'password'" 
+                                        id="prof-senha" 
+                                        name="prof-senha" 
+                                        [(ngModel)]="senhaProfessor" 
+                                        placeholder="••••••••" 
+                                        required 
+                                        autocomplete="current-password" />
+                                    <button type="button" class="btn-toggle-eye" (click)="toggleSenha('professor')" aria-label="Mostrar ou ocultar senha">
+                                        <svg *ngIf="!mostrarSenhaProfessor" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        <svg *ngIf="mostrarSenhaProfessor" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Botão de Ação -->
+                            <button type="submit" class="auth-submit-btn submit-professor" [disabled]="carregando">
+                                <span>{{ carregando ? 'Autenticando...' : 'Entrar como Professor' }}</span>
+                                <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- ==============================================
+                         CARD 2: AUTENTICAÇÃO DO ADMINISTRADOR (GESTÃO)
+                         ============================================== -->
+                    <div class="auth-card card-admin" *ngIf="abaAtiva === 'admin' || modoVisualizacao === 'lado-a-lado'">
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <span class="card-header-emoji">🛡️</span>
+                                <div>
+                                    <h3 class="card-title">Gestão & Coordenação</h3>
+                                    <span class="card-subtitle">Cursos, programas, escolas e IES</span>
+                                </div>
+                            </div>
+                            <span class="card-badge badge-admin">Admin</span>
+                        </div>
+
+                        <form (ngSubmit)="aoEntrar('admin')" class="card-form">
+                            <!-- Campo Usuário do Admin -->
+                            <div class="form-group">
+                                <div class="form-label-row">
+                                    <label for="admin-usuario">Usuário Administrativo</label>
+                                    <button type="button" class="demo-fill-btn demo-admin-btn" (click)="preencherDemo('admin')">
+                                        Demo
+                                    </button>
+                                </div>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                    <input type="text" id="admin-usuario" name="admin-usuario" 
+                                        [(ngModel)]="usernameAdmin" 
+                                        placeholder="ex: admin" 
+                                        required 
+                                        autocomplete="username" />
+                                </div>
+                            </div>
+
+                            <!-- Campo Senha do Admin -->
+                            <div class="form-group">
+                                <div class="form-label-row">
+                                    <label for="admin-senha">Chave de Acesso</label>
+                                    <a routerLink="/login" class="forgot-link">Esqueceu?</a>
+                                </div>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                    <input [type]="mostrarSenhaAdmin ? 'text' : 'password'" 
+                                        id="admin-senha" 
+                                        name="admin-senha" 
+                                        [(ngModel)]="senhaAdmin" 
+                                        placeholder="••••••••" 
+                                        required 
+                                        autocomplete="current-password" />
+                                    <button type="button" class="btn-toggle-eye" (click)="toggleSenha('admin')" aria-label="Mostrar ou ocultar senha">
+                                        <svg *ngIf="!mostrarSenhaAdmin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        <svg *ngIf="mostrarSenhaAdmin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Botão de Ação -->
+                            <button type="submit" class="auth-submit-btn submit-admin" [disabled]="carregando">
+                                <span>{{ carregando ? 'Autenticando...' : 'Entrar como Administrador' }}</span>
+                                <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Rodapé do Painel -->
+            <footer class="auth-footer">
+                <div class="security-note">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>Criptografia SSL de 256 bits • UCSAL</span>
+                </div>
+                <a routerLink="/login" class="help-link">Dúvidas no acesso?</a>
+            </footer>
+
+        </aside>
+
+    </div>
+
 </div>
